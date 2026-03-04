@@ -659,8 +659,9 @@ Return as JSON:
 
     return { success: true, data: { content: parsed } };
   } catch (err) {
-    console.error("generateLesson error:", err);
-    return { success: false, error: "Failed to generate lesson." };
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error("generateLesson error:", errMsg);
+    return { success: false, error: `Lesson error: ${errMsg}` };
   }
 }
 
