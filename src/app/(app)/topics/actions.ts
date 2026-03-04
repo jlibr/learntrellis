@@ -1,5 +1,7 @@
 "use server";
 
+export const maxDuration = 60;
+
 import { createClient } from "@/lib/supabase/server";
 import { sanitizeInput } from "@/lib/utils";
 import { getProviderConfig } from "@/app/(app)/settings/actions";
