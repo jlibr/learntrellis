@@ -26,6 +26,8 @@ export type CompletionOptions = {
   stream?: boolean;
   /** Force JSON output from the model */
   jsonMode?: boolean;
+  /** Max reasoning/thinking tokens (0 = disable thinking). Only affects Gemini 2.5+ */
+  reasoningTokens?: number;
   /** Abort signal for request cancellation */
   signal?: AbortSignal;
 };
@@ -200,6 +202,7 @@ async function makeRequest(
   if (options?.temperature !== undefined) body.temperature = options.temperature;
   if (options?.maxTokens !== undefined) body.max_tokens = options.maxTokens;
   if (options?.jsonMode) body.response_format = { type: "json_object" };
+  if (options?.reasoningTokens !== undefined) body.reasoning = { max_tokens: options.reasoningTokens };
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
