@@ -211,7 +211,7 @@ Rules:
         role: "user",
         content: `Topic: ${topic.title}\nGoal: ${topic.goal || "General proficiency"}\nBackground: ${topic.background || "None provided"}`,
       },
-    ], { temperature: 0.3 });
+    ], { temperature: 0.3, jsonMode: true });
 
     const parsed = parseJsonFromAI(result.content) as {
       dimensions: Array<{ name: string; description: string }>;
@@ -280,7 +280,7 @@ Rules:
         role: "user",
         content: `Create a ${difficulty} question about "${dimension}" for someone learning "${topic.title}" with the goal: "${topic.goal || "General proficiency"}"`,
       },
-    ], { temperature: 0.5 });
+    ], { temperature: 0.5, jsonMode: true });
 
     const parsed = parseJsonFromAI(result.content) as {
       question: string;
@@ -364,7 +364,7 @@ Rules:
         role: "user",
         content: `The learner answered: "${sanitizedAnswer}"`,
       },
-    ], { temperature: 0.2 });
+    ], { temperature: 0.2, jsonMode: true });
 
     const parsed = parseJsonFromAI(result.content) as {
       signal: "strong" | "adequate" | "weak";
@@ -475,7 +475,7 @@ export async function generateCurriculum(topicId: string): Promise<ActionResult<
         role: "user",
         content: `Generate a complete curriculum for "${topic.title}" following backwards design from the terminal goal. Enforce Bloom's progression and max 4 concepts per lesson. Ensure each module has 2-5 lessons.\n\nAlso classify the overall topic into one of these types: language, math, science, humanities, creative, technical, physical.\n\nReturn JSON with a "topicType" field at the top level.`,
       },
-    ], { temperature: 0.4, maxTokens: 4000 });
+    ], { temperature: 0.4, maxTokens: 4000, jsonMode: true });
 
     const parsed = parseJsonFromAI(result.content) as {
       topicType?: string;
@@ -650,7 +650,7 @@ Return as JSON:
         role: "user",
         content: `Write the lesson "${lesson.title}" for module "${module.title}" in topic "${topic.title}".`,
       },
-    ], { temperature: 0.5, maxTokens: 16000 });
+    ], { temperature: 0.5, maxTokens: 16000, jsonMode: true });
 
     // Check if response was truncated
     if (result.finishReason === "length") {
@@ -956,7 +956,7 @@ export async function gradeAnswer(data: {
         role: "user",
         content: `Question: ${data.question}\nCorrect Answer: ${data.correctAnswer}\nLearner's Answer: ${sanitizedAnswer}`,
       },
-    ], { temperature: 0.2 });
+    ], { temperature: 0.2, jsonMode: true });
 
     const parsed = parseJsonFromAI(aiResult.content) as {
       grade: string;
@@ -1031,7 +1031,7 @@ export async function extractConcepts(lessonId: string): Promise<ActionResult<{
     const result = await chatCompletion(config, [
       { role: "system", content: prompt },
       { role: "user", content: "Extract the key concepts for spaced repetition review." },
-    ], { temperature: 0.3 });
+    ], { temperature: 0.3, jsonMode: true });
 
     const parsed = parseJsonFromAI(result.content) as {
       concepts: Array<{
@@ -1257,7 +1257,7 @@ Return a JSON object:
 }`,
       },
       { role: "user", content: "Generate the mastery test now." },
-    ], { temperature: 0.4, maxTokens: 3000 });
+    ], { temperature: 0.4, maxTokens: 3000, jsonMode: true });
 
     const parsed = parseJsonFromAI(result.content) as {
       questions: Array<{
@@ -1343,7 +1343,7 @@ Question: ${answer.question}
 Correct Answer: ${answer.correctAnswer}`,
           },
           { role: "user", content: `Learner answered: "${sanitizedAnswer}"` },
-        ], { temperature: 0.1 });
+        ], { temperature: 0.1, jsonMode: true });
 
         const parsed = parseJsonFromAI(gradeResult.content) as { correct: boolean; score: number };
         isCorrect = parsed.score >= 0.7;

@@ -24,6 +24,8 @@ export type CompletionOptions = {
   temperature?: number;
   maxTokens?: number;
   stream?: boolean;
+  /** Force JSON output from the model */
+  jsonMode?: boolean;
   /** Abort signal for request cancellation */
   signal?: AbortSignal;
 };
@@ -197,6 +199,7 @@ async function makeRequest(
 
   if (options?.temperature !== undefined) body.temperature = options.temperature;
   if (options?.maxTokens !== undefined) body.max_tokens = options.maxTokens;
+  if (options?.jsonMode) body.response_format = { type: "json_object" };
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
