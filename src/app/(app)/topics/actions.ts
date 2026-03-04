@@ -955,7 +955,8 @@ export async function gradeAnswer(data: {
 
     // For MC, check directly first
     if (data.questionType === "mc") {
-      const isCorrect = sanitizedAnswer.trim().toLowerCase() === data.correctAnswer.trim().toLowerCase();
+      const normalizeMC = (s: string) => s.trim().toLowerCase().replace(/`/g, "").replace(/\s+/g, " ");
+      const isCorrect = normalizeMC(sanitizedAnswer) === normalizeMC(data.correctAnswer);
       const grade = isCorrect ? "correct" : "incorrect";
       const feedback = isCorrect
         ? "Correct!"
@@ -1369,7 +1370,8 @@ export async function evaluateMasteryTest(
       let isCorrect = false;
 
       if (answer.type === "mc") {
-        isCorrect = sanitizedAnswer.toLowerCase() === answer.correctAnswer.toLowerCase();
+        const normMC = (s: string) => s.trim().toLowerCase().replace(/`/g, "").replace(/\s+/g, " ");
+        isCorrect = normMC(sanitizedAnswer) === normMC(answer.correctAnswer);
       } else {
         // AI grade for open-ended
         const gradeResult = await chatCompletion(config, [

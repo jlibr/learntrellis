@@ -457,14 +457,17 @@ export default function LessonPage() {
             {/* MC options */}
             {currentQuestion.type === "mc" && currentQuestion.options && (
               <div className="space-y-2">
-                {currentQuestion.options.map((option, idx) => (
+                {currentQuestion.options.map((option, idx) => {
+                  const normMC = (s: string) => s.trim().toLowerCase().replace(/`/g, "").replace(/\s+/g, " ");
+                  const isCorrectOption = normMC(option) === normMC(currentQuestion.correctAnswer);
+                  return (
                   <button
                     key={idx}
                     onClick={() => !gradeResult && setSelectedAnswer(option)}
                     disabled={!!gradeResult}
                     className={`w-full rounded-md border px-4 py-3 text-left text-sm transition-colors ${
                       gradeResult
-                        ? option === currentQuestion.correctAnswer
+                        ? isCorrectOption
                           ? "border-green-500 bg-green-500/10 text-green-300"
                           : selectedAnswer === option
                           ? "border-red-500 bg-red-500/10 text-red-300"
@@ -476,7 +479,8 @@ export default function LessonPage() {
                   >
                     {option}
                   </button>
-                ))}
+                  );
+                })}
               </div>
             )}
 
@@ -581,11 +585,13 @@ export default function LessonPage() {
 function markdownToHtml(md: string): string {
   if (!md) return "";
 
+  const escHtml = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
   let html = md
-    // Code blocks
-    .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
-    // Inline code
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    // Code blocks — escape HTML inside
+    .replace(/```(\w*)\n([\s\S]*?)```/g, (_m, lang, code) => `<pre><code class="language-${lang}">${escHtml(code)}</code></pre>`)
+    // Inline code — escape HTML inside
+    .replace(/`([^`]+)`/g, (_m, code) => `<code>${escHtml(code)}</code>`)
     // Headers
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')
     .replace(/^## (.+)$/gm, '<h2>$1</h2>')
