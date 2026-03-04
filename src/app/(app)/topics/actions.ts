@@ -932,10 +932,11 @@ export async function gradeAnswer(data: {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return { success: false, error: "Not authenticated." };
 
-    const sanitizedAnswer = sanitizeInput(data.userAnswer.trim());
+    const rawAnswer = data.userAnswer.trim();
+    const sanitizedAnswer = sanitizeInput(rawAnswer);
 
     // Handle "I don't know" for MC
-    if (sanitizedAnswer.toLowerCase() === "i don't know" || sanitizedAnswer === "") {
+    if (rawAnswer.toLowerCase() === "i don't know" || rawAnswer === "") {
       const result = {
         grade: data.questionType === "mc" ? "incorrect" : "needs_work",
         feedback: "No answer provided. Review the material and try again.",
@@ -953,10 +954,10 @@ export async function gradeAnswer(data: {
       return { success: true, data: result };
     }
 
-    // For MC, check directly first
+    // For MC, compare raw strings (sanitizeInput converts < > to entities, breaking comparison)
     if (data.questionType === "mc") {
       const normalizeMC = (s: string) => s.trim().toLowerCase().replace(/`/g, "").replace(/\s+/g, " ");
-      const isCorrect = normalizeMC(sanitizedAnswer) === normalizeMC(data.correctAnswer);
+      const isCorrect = normalizeMC(rawAnswer) === normalizeMC(data.correctAnswer);
       const grade = isCorrect ? "correct" : "incorrect";
       const feedback = isCorrect
         ? "Correct!"
@@ -1366,12 +1367,13 @@ export async function evaluateMasteryTest(
     let totalCorrect = 0;
 
     for (const answer of answers) {
-      const sanitizedAnswer = sanitizeInput(answer.userAnswer.trim());
+      const rawAnswer = answer.userAnswer.trim();
+      const sanitizedAnswer = sanitizeInput(rawAnswer);
       let isCorrect = false;
 
       if (answer.type === "mc") {
         const normMC = (s: string) => s.trim().toLowerCase().replace(/`/g, "").replace(/\s+/g, " ");
-        isCorrect = normMC(sanitizedAnswer) === normMC(answer.correctAnswer);
+        isCorrect = normMC(rawAnswer) === normMC(answer.correctAnswer);
       } else {
         // AI grade for open-ended
         const gradeResult = await chatCompletion(config, [
