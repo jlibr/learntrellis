@@ -268,8 +268,9 @@ Rules:
 
     return { success: true, data: parsed };
   } catch (err) {
-    console.error("generateAssessmentQuestion error:", err);
-    return { success: false, error: "Failed to generate question." };
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error("generateAssessmentQuestion error:", errMsg);
+    return { success: false, error: `Question error: ${errMsg}` };
   }
 }
 
@@ -350,8 +351,9 @@ Rules:
 
     return { success: true, data: parsed };
   } catch (err) {
-    console.error("evaluateAssessmentAnswer error:", err);
-    return { success: false, error: "Failed to evaluate answer." };
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error("evaluateAssessmentAnswer error:", errMsg);
+    return { success: false, error: `Evaluation error: ${errMsg}` };
   }
 }
 
