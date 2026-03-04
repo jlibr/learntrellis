@@ -212,11 +212,14 @@ async function makeRequest(
     headers["X-Title"] = "LearnTrellis";
   }
 
+  // Default 45-second timeout if no signal provided
+  const signal = options?.signal ?? AbortSignal.timeout(45_000);
+
   return fetch(url, {
     method: "POST",
     headers,
     body: JSON.stringify(body),
-    signal: options?.signal,
+    signal,
   });
 }
 

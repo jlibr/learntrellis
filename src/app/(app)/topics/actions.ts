@@ -1006,8 +1006,13 @@ export async function gradeAnswer(data: {
 
     return { success: true, data: parsed };
   } catch (err) {
-    console.error("gradeAnswer error:", err);
-    return { success: false, error: "Failed to grade answer." };
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error("gradeAnswer error:", errMsg);
+    // On timeout/failure, give a simple pass-through grade rather than blocking the learner
+    if (errMsg.includes("abort") || errMsg.includes("timeout") || errMsg.includes("TimeoutError")) {
+      return { success: true, data: { grade: "adequate", feedback: "Grading timed out. Your answer has been recorded." } };
+    }
+    return { success: false, error: `Grading failed: ${errMsg}` };
   }
 }
 
