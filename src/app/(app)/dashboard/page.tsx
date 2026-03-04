@@ -1,0 +1,353 @@
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
+
+type TopicCardData = {
+  id: string;
+  title: string;
+  goal: string | null;
+  status: string;
+  currentModule: { id: string; title: string | null; status: string } | null;
+  totalLessons: number;
+  completedLessons: number;
+  dueReviewCount: number;
+  nextAction: {
+    type: "continue" | "review" | "test" | "assess" | "completed";
+    href: string;
+    label: string;
+  };
+};
+
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return null; // Layout handles redirect
+  }
+
+  const { data: topics } = await supabase
+    .from("topics")
+    .select("id, title, goal, status, created_at")
+    .order("created_at", { ascending: false });
+
+  if (!topics || topics.length === 0) {
+    return (
+      <div className="mx-auto max-w-2xl py-24 text-center">
+        <div className="mb-6">
+          <svg
+            className="mx-auto h-16 w-16 text-zinc-700"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1}
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+            />
+          </svg>
+        </div>
+        <h1 className="text-2xl font-semibold text-zinc-100">
+          Welcome to LearnTrellis
+        </h1>
+        <p className="mt-3 text-zinc-400">
+          Start your first learning topic and let AI build a personalized
+          curriculum for you.
+        </p>
+        <Link href="/topics/new">
+          <Button variant="primary" className="mt-6">
+            Create your first topic
+          </Button>
+        </Link>
+      </div>
+    );
+  }
+
+  // Fetch all modules for these topics
+  const topicIds = topics.map((t) => t.id);
+
+  const { data: allModules } = await supabase
+    .from("modules")
+    .select("id, topic_id, title, status, sequence_order")
+    .in("topic_id", topicIds)
+    .order("sequence_order", { ascending: true });
+
+  // Fetch all lessons for those modules
+  const moduleIds = (allModules || []).map((m) => m.id);
+  const { data: allLessons } =
+    moduleIds.length > 0
+      ? await supabase
+          .from("lessons")
+          .select("id, module_id, status")
+          .in("module_id", moduleIds)
+      : { data: [] as Array<{ id: string; module_id: string; status: string }> };
+
+  // Fetch due SRS counts per topic
+  const now = new Date().toISOString();
+  const { data: dueCards } = await supabase
+    .from("srs_cards")
+    .select("id, topic_id")
+    .in("topic_id", topicIds)
+    .lte("next_review_at", now);
+
+  // Build lookup maps
+  const modulesByTopic: Record<
+    string,
+    Array<{ id: string; title: string | null; status: string; sequence_order: number }>
+  > = {};
+  for (const mod of allModules || []) {
+    if (!modulesByTopic[mod.topic_id]) modulesByTopic[mod.topic_id] = [];
+    modulesByTopic[mod.topic_id].push(mod);
+  }
+
+  const lessonsByModule: Record<
+    string,
+    Array<{ id: string; status: string }>
+  > = {};
+  for (const lesson of allLessons || []) {
+    if (!lessonsByModule[lesson.module_id])
+      lessonsByModule[lesson.module_id] = [];
+    lessonsByModule[lesson.module_id].push(lesson);
+  }
+
+  const dueCountByTopic: Record<string, number> = {};
+  for (const card of dueCards || []) {
+    dueCountByTopic[card.topic_id] =
+      (dueCountByTopic[card.topic_id] || 0) + 1;
+  }
+
+  // Build card data for each topic
+  const topicCards: TopicCardData[] = topics.map((topic) => {
+    const modules = modulesByTopic[topic.id] || [];
+    const dueReviewCount = dueCountByTopic[topic.id] || 0;
+
+    // Calculate total/completed lessons across all modules
+    let totalLessons = 0;
+    let completedLessons = 0;
+    for (const mod of modules) {
+      const modLessons = lessonsByModule[mod.id] || [];
+      totalLessons += modLessons.length;
+      completedLessons += modLessons.filter(
+        (l) => l.status === "completed"
+      ).length;
+    }
+
+    // Find current active module
+    const activeModule =
+      modules.find((m) => m.status === "active") ||
+      modules.find((m) => m.status === "mastery_pending") ||
+      modules.find((m) => m.status === "reteach") ||
+      null;
+
+    // Determine next action
+    let nextAction: TopicCardData["nextAction"];
+
+    if (
+      topic.status === "onboarding" ||
+      topic.status === "assessing"
+    ) {
+      nextAction = {
+        type: "assess",
+        href: `/topics/${topic.id}/assess`,
+        label: "Continue Setup",
+      };
+    } else if (topic.status === "completed") {
+      nextAction = {
+        type: "completed",
+        href: `/topics/${topic.id}`,
+        label: "View Topic",
+      };
+    } else if (dueReviewCount > 0) {
+      nextAction = {
+        type: "review",
+        href: `/topics/${topic.id}/review`,
+        label: `Review (${dueReviewCount} due)`,
+      };
+    } else if (activeModule) {
+      const activeModuleLessons = lessonsByModule[activeModule.id] || [];
+      const allComplete =
+        activeModuleLessons.length > 0 &&
+        activeModuleLessons.every((l) => l.status === "completed");
+
+      if (
+        allComplete ||
+        activeModule.status === "mastery_pending" ||
+        activeModule.status === "reteach"
+      ) {
+        nextAction = {
+          type: "test",
+          href: `/topics/${topic.id}/test?moduleId=${activeModule.id}`,
+          label: "Take Mastery Test",
+        };
+      } else {
+        const nextLesson =
+          activeModuleLessons.find((l) => l.status === "in_progress") ||
+          activeModuleLessons.find((l) => l.status === "pending");
+        nextAction = {
+          type: "continue",
+          href: nextLesson
+            ? `/topics/${topic.id}/lesson?lessonId=${nextLesson.id}`
+            : `/topics/${topic.id}`,
+          label: "Continue Lesson",
+        };
+      }
+    } else {
+      nextAction = {
+        type: "continue",
+        href: `/topics/${topic.id}`,
+        label: "View Topic",
+      };
+    }
+
+    return {
+      id: topic.id,
+      title: topic.title,
+      goal: topic.goal,
+      status: topic.status,
+      currentModule: activeModule
+        ? {
+            id: activeModule.id,
+            title: activeModule.title,
+            status: activeModule.status,
+          }
+        : null,
+      totalLessons,
+      completedLessons,
+      dueReviewCount,
+      nextAction,
+    };
+  });
+
+  return (
+    <div className="mx-auto max-w-5xl">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-zinc-100">Your Topics</h1>
+        <Link href="/topics/new">
+          <Button variant="primary" size="sm">
+            New Topic
+          </Button>
+        </Link>
+      </div>
+
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {topicCards.map((card) => (
+          <TopicCard key={card.id} card={card} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TopicCard({ card }: { card: TopicCardData }) {
+  const progressPercent =
+    card.totalLessons > 0
+      ? Math.round((card.completedLessons / card.totalLessons) * 100)
+      : card.status === "onboarding" || card.status === "assessing"
+      ? 5
+      : 0;
+
+  return (
+    <Card className="flex flex-col transition-colors hover:border-zinc-700">
+      {/* Header row: title + status */}
+      <div className="flex items-start justify-between gap-2">
+        <Link
+          href={`/topics/${card.id}`}
+          className="min-w-0 flex-1"
+        >
+          <h2 className="font-medium text-zinc-100 hover:text-amber-400 transition-colors truncate">
+            {card.title}
+          </h2>
+        </Link>
+        <Badge variant={statusVariant(card.status)}>
+          {statusLabel(card.status)}
+        </Badge>
+      </div>
+
+      {/* Current module */}
+      {card.currentModule && (
+        <p className="mt-2 text-xs text-zinc-500">
+          Current:{" "}
+          <span className="text-zinc-400">
+            {card.currentModule.title || "Module"}
+          </span>
+        </p>
+      )}
+
+      {/* Goal */}
+      {card.goal && (
+        <p className="mt-2 text-sm text-zinc-400 line-clamp-2">{card.goal}</p>
+      )}
+
+      {/* Progress bar */}
+      <div className="mt-4">
+        <Progress
+          value={progressPercent}
+          label={
+            card.totalLessons > 0
+              ? `${card.completedLessons}/${card.totalLessons} lessons`
+              : undefined
+          }
+        />
+      </div>
+
+      {/* Footer: SRS badge + CTA */}
+      <div className="mt-4 flex items-center justify-between pt-2 border-t border-zinc-800">
+        <div>
+          {card.dueReviewCount > 0 && (
+            <Link href={`/topics/${card.id}/review`}>
+              <Badge variant="warning" className="cursor-pointer">
+                {card.dueReviewCount} review{card.dueReviewCount !== 1 ? "s" : ""} due
+              </Badge>
+            </Link>
+          )}
+        </div>
+        <Link href={card.nextAction.href}>
+          <Button
+            variant={card.nextAction.type === "review" ? "secondary" : "primary"}
+            size="sm"
+          >
+            {card.nextAction.label}
+          </Button>
+        </Link>
+      </div>
+    </Card>
+  );
+}
+
+function statusVariant(
+  status: string
+): "default" | "success" | "warning" | "info" {
+  switch (status) {
+    case "completed":
+      return "success";
+    case "active":
+      return "info";
+    case "onboarding":
+    case "assessing":
+      return "warning";
+    default:
+      return "default";
+  }
+}
+
+function statusLabel(status: string): string {
+  switch (status) {
+    case "onboarding":
+      return "Setup";
+    case "assessing":
+      return "Assessing";
+    case "active":
+      return "Active";
+    case "completed":
+      return "Completed";
+    default:
+      return status;
+  }
+}
