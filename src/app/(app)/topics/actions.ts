@@ -79,18 +79,36 @@ function repairJsonNewlines(raw: string): string {
 }
 
 function parseJsonFromAI(content: string): unknown {
-  // Try to extract JSON from markdown code blocks first
-  const codeBlockMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
-  const raw = codeBlockMatch
-    ? codeBlockMatch[1].trim()
-    : (content.match(/(\{[\s\S]*\}|\[[\s\S]*\])/) || [null, content])[1];
+  // Strategy: find the best JSON candidate, try to parse it.
+  // Priority: 1) ```json block  2) any {..} in content  3) ```any block  4) raw content
+  const candidates: string[] = [];
 
-  // First try direct parse, then try with newline repair
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return JSON.parse(repairJsonNewlines(raw));
+  // 1. Explicitly tagged JSON code block
+  const jsonBlock = content.match(/```json\s*([\s\S]*?)```/);
+  if (jsonBlock) candidates.push(jsonBlock[1].trim());
+
+  // 2. First top-level JSON object or array in the content
+  const jsonObj = content.match(/(\{[\s\S]*\})/);
+  if (jsonObj) candidates.push(jsonObj[1]);
+  const jsonArr = content.match(/(\[[\s\S]*\])/);
+  if (jsonArr) candidates.push(jsonArr[1]);
+
+  // 3. Any code block (last resort — might be HTML/other)
+  const anyBlock = content.match(/```\w*\s*([\s\S]*?)```/);
+  if (anyBlock) candidates.push(anyBlock[1].trim());
+
+  // 4. Raw content
+  candidates.push(content.trim());
+
+  // Try each candidate: direct parse, then with newline repair
+  for (const raw of candidates) {
+    try { return JSON.parse(raw); } catch { /* continue */ }
+    try { return JSON.parse(repairJsonNewlines(raw)); } catch { /* continue */ }
   }
+
+  // Nothing worked — throw with helpful context
+  const preview = content.slice(0, 100).replace(/\n/g, "\\n");
+  throw new Error(`Failed to parse JSON from AI response: "${preview}..."`);
 }
 
 // ---------------------------------------------------------------------------
@@ -656,7 +674,9 @@ OUTPUT FORMAT: Pure JSON only. Start with { and end with }. No HTML, no markdown
     let result = await chatCompletion(config, messages, { temperature: 0.5, maxTokens: 16000, jsonMode: true });
 
     // Validate response is JSON, not HTML — retry once if model confused the format
-    if (result.content.trim().startsWith("<") || result.content.trim().startsWith("html")) {
+    const trimmed = result.content.trim();
+    const looksLikeHTML = trimmed.startsWith("<") || trimmed.startsWith("html") || trimmed.includes("<!DOCTYPE") || trimmed.includes("```html");
+    if (looksLikeHTML && !trimmed.includes('"objective"')) {
       console.error("Model returned HTML instead of JSON, retrying with stronger instruction");
       messages.push(
         { role: "user" as const, content: "ERROR: You returned HTML. I need a JSON object starting with {. Try again." } as { role: "user"; content: string },
