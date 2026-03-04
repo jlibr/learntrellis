@@ -57,12 +57,16 @@ export default function AssessPage() {
   // Load dimensions on mount
   useEffect(() => {
     async function loadDimensions() {
-      const result = await generateDimensions(topicId);
-      if (result.success) {
-        setDimensions(result.data.dimensions);
-        setPhase("loading"); // Will load first question
-      } else {
-        setError(result.error);
+      try {
+        const result = await generateDimensions(topicId);
+        if (result.success) {
+          setDimensions(result.data.dimensions);
+          setPhase("loading"); // Will load first question
+        } else {
+          setError(result.error);
+        }
+      } catch (err) {
+        setError(`Failed to load dimensions: ${err instanceof Error ? err.message : "Request timed out."}`);
       }
     }
     loadDimensions();
@@ -81,12 +85,18 @@ export default function AssessPage() {
     setOpenAnswer("");
 
     const dim = dimensions[dimIndex];
-    const result = await generateAssessmentQuestion(
-      topicId,
-      dim.name,
-      difficulty,
-      previousQuestions
-    );
+    let result;
+    try {
+      result = await generateAssessmentQuestion(
+        topicId,
+        dim.name,
+        difficulty,
+        previousQuestions
+      );
+    } catch (err) {
+      setError(`Failed to generate question: ${err instanceof Error ? err.message : "Request timed out."}`);
+      return;
+    }
 
     if (result.success) {
       setCurrentQuestion(result.data);
@@ -111,13 +121,19 @@ export default function AssessPage() {
 
     setPhase("evaluating");
 
-    const evalResult = await evaluateAssessmentAnswer(
-      topicId,
-      currentQuestion.question,
-      answer,
-      currentQuestion.correctAnswer,
-      currentQuestion.type
-    );
+    let evalResult;
+    try {
+      evalResult = await evaluateAssessmentAnswer(
+        topicId,
+        currentQuestion.question,
+        answer,
+        currentQuestion.correctAnswer,
+        currentQuestion.type
+      );
+    } catch (err) {
+      setError(`Evaluation failed: ${err instanceof Error ? err.message : "Request timed out. Please try again."}`);
+      return;
+    }
 
     if (!evalResult.success) {
       setError(evalResult.error);
@@ -144,13 +160,19 @@ export default function AssessPage() {
 
     setPhase("evaluating");
 
-    const evalResult = await evaluateAssessmentAnswer(
-      topicId,
-      `Follow-up: Explain your understanding of ${currentQuestion.question}`,
-      answer,
-      currentQuestion.correctAnswer,
-      "open_ended"
-    );
+    let evalResult;
+    try {
+      evalResult = await evaluateAssessmentAnswer(
+        topicId,
+        `Follow-up: Explain your understanding of ${currentQuestion.question}`,
+        answer,
+        currentQuestion.correctAnswer,
+        "open_ended"
+      );
+    } catch (err) {
+      setError(`Evaluation failed: ${err instanceof Error ? err.message : "Request timed out. Please try again."}`);
+      return;
+    }
 
     if (!evalResult.success) {
       setError(evalResult.error);
