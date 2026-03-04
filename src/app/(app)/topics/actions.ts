@@ -604,13 +604,15 @@ export async function generateLesson(lessonId: string): Promise<ActionResult<{
         content: prompt + `\n\nCRITICAL: Your lesson MUST follow this EXACT template:
 1. objective — One sentence
 2. whyItMatters — Why this connects to their goal: "${topic.goal || "General proficiency"}"
-3. material — Core teaching content (300-800 words, markdown)
-4. keyTakeaways — 2-4 bullet points
-5. workedExample — {problem, solution, explanation}
-6. practiceQuestions — 3-5 questions, mix of MC/open-ended/worked_problem
+3. material — Core teaching content (200-400 words, plain text with minimal markdown). Keep it concise. NO code blocks longer than 5 lines.
+4. keyTakeaways — 2-3 bullet points
+5. workedExample — {problem, solution, explanation} — keep each field under 100 words
+6. practiceQuestions — 3 questions, mix of MC/open-ended
 
 For MC questions, ALWAYS include "I don't know" as the last option.
-Max 4 concepts in the material. Do NOT exceed this.
+Max 3 concepts in the material. Be CONCISE — quality over length.
+
+IMPORTANT: Keep total response under 2000 tokens. Brevity is critical.
 
 Return as JSON:
 {
@@ -619,14 +621,20 @@ Return as JSON:
   "material": "...",
   "keyTakeaways": ["..."],
   "workedExample": {"problem":"...","solution":"...","explanation":"..."},
-  "practiceQuestions": [{"type":"mc|open_ended|worked_problem","question":"...","options":["A","B","C","D","I don't know"],"correctAnswer":"...","explanation":"..."}]
+  "practiceQuestions": [{"type":"mc|open_ended","question":"...","options":["A","B","C","D","I don't know"],"correctAnswer":"...","explanation":"..."}]
 }`,
       },
       {
         role: "user",
         content: `Write the lesson "${lesson.title}" for module "${module.title}" in topic "${topic.title}".`,
       },
-    ], { temperature: 0.5, maxTokens: 8000 });
+    ], { temperature: 0.5, maxTokens: 4000 });
+
+    // Check if response was truncated
+    if (result.finishReason === "length") {
+      console.error("Lesson response truncated — model hit token limit");
+      return { success: false, error: "Lesson generation was too long. Please try again." };
+    }
 
     const parsed = parseJsonFromAI(result.content) as {
       objective: string;
