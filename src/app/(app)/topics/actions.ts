@@ -163,7 +163,9 @@ export async function generateDimensions(topicId: string): Promise<ActionResult<
 
     if (!topic) return { success: false, error: "Topic not found." };
 
+    console.log("[generateDimensions] topic found:", topic.title);
     const config = await getConfigForTask("assessment");
+    console.log("[generateDimensions] config:", { baseUrl: config.baseUrl, model: config.model, hasKey: !!config.apiKey });
 
     const result = await chatCompletion(config, [
       {
@@ -195,8 +197,9 @@ Rules:
 
     return { success: true, data: { dimensions: parsed.dimensions } };
   } catch (err) {
-    console.error("generateDimensions error:", err);
-    return { success: false, error: "Failed to generate assessment dimensions." };
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error("generateDimensions error:", errMsg);
+    return { success: false, error: `Assessment error: ${errMsg}` };
   }
 }
 
