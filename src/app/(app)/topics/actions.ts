@@ -628,11 +628,11 @@ Return as JSON:
         role: "user",
         content: `Write the lesson "${lesson.title}" for module "${module.title}" in topic "${topic.title}".`,
       },
-    ], { temperature: 0.5, maxTokens: 4000 });
+    ], { temperature: 0.5, maxTokens: 16000 });
 
     // Check if response was truncated
     if (result.finishReason === "length") {
-      console.error("Lesson response truncated — model hit token limit");
+      console.error("Lesson response truncated — model hit token limit. Content length:", result.content.length);
       return { success: false, error: "Lesson generation was too long. Please try again." };
     }
 
