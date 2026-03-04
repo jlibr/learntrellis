@@ -216,16 +216,11 @@ export async function getProviderConfig(
       };
     }
 
-    // Case 2: Active subscription, no BYOK → use hosted key
-    if (profile.subscription_status === "active") {
-      const hostedKey = process.env.HOSTED_API_KEY;
-      const hostedProvider = (process.env.HOSTED_PROVIDER || "openrouter") as ProviderName;
+    // Case 2: No BYOK key → use hosted key (for subscribers and free-tier users)
+    const hostedKey = process.env.HOSTED_API_KEY;
+    const hostedProvider = (process.env.HOSTED_PROVIDER || "openrouter") as ProviderName;
 
-      if (!hostedKey) {
-        console.error("HOSTED_API_KEY not configured");
-        return { success: false, error: "Hosted provider not available. Please add your own API key." };
-      }
-
+    if (hostedKey) {
       const config = buildProviderConfig(hostedProvider, hostedKey, model);
 
       return {
@@ -239,7 +234,7 @@ export async function getProviderConfig(
       };
     }
 
-    // Case 3: No key and no subscription
+    // Case 3: No BYOK key and no hosted key available
     return {
       success: true,
       data: null,
