@@ -620,13 +620,12 @@ export async function generateLesson(lessonId: string): Promise<ActionResult<{
       learnerLevel: JSON.stringify(learnerProfile?.baseline_scores || {}),
     });
 
-    const result = await chatCompletion(config, [
-      {
-        role: "system",
-        content: prompt + `\n\nCRITICAL: Your lesson MUST follow this EXACT template:
+    const systemContent = prompt + `\n\nCRITICAL: You are a JSON API. Your ENTIRE response must be a single JSON object. Do NOT output HTML, markdown, or any other format.
+
+Your lesson MUST follow this EXACT template:
 1. objective — One sentence
 2. whyItMatters — Why this connects to their goal: "${topic.goal || "General proficiency"}"
-3. material — Core teaching content (200-400 words, plain text with minimal markdown). Keep it concise. NO code blocks longer than 5 lines.
+3. material — Core teaching content (200-400 words, plain text with minimal markdown). When discussing code, use backtick notation inline. NO raw HTML output.
 4. keyTakeaways — 2-3 bullet points
 5. workedExample — {problem, solution, explanation} — keep each field under 100 words
 6. practiceQuestions — 3 questions, mix of MC/open-ended
@@ -635,8 +634,8 @@ For MC questions, ALWAYS include "I don't know" as the last option.
 Max 3 concepts in the material. Be CONCISE — quality over length.
 
 IMPORTANT: Keep total response under 2000 tokens. Brevity is critical.
+OUTPUT FORMAT: Pure JSON only. Start with { and end with }. No HTML, no markdown fences.
 
-Return as JSON:
 {
   "objective": "...",
   "whyItMatters": "...",
@@ -644,13 +643,26 @@ Return as JSON:
   "keyTakeaways": ["..."],
   "workedExample": {"problem":"...","solution":"...","explanation":"..."},
   "practiceQuestions": [{"type":"mc|open_ended","question":"...","options":["A","B","C","D","I don't know"],"correctAnswer":"...","explanation":"..."}]
-}`,
-      },
+}`;
+
+    const messages: Array<{ role: "system" | "user"; content: string }> = [
+      { role: "system", content: systemContent },
       {
         role: "user",
-        content: `Write the lesson "${lesson.title}" for module "${module.title}" in topic "${topic.title}".`,
+        content: `Output a JSON object for the lesson "${lesson.title}" in module "${module.title}", topic "${topic.title}". Remember: JSON only, no HTML.`,
       },
-    ], { temperature: 0.5, maxTokens: 16000, jsonMode: true });
+    ];
+
+    let result = await chatCompletion(config, messages, { temperature: 0.5, maxTokens: 16000, jsonMode: true });
+
+    // Validate response is JSON, not HTML — retry once if model confused the format
+    if (result.content.trim().startsWith("<") || result.content.trim().startsWith("html")) {
+      console.error("Model returned HTML instead of JSON, retrying with stronger instruction");
+      messages.push(
+        { role: "user" as const, content: "ERROR: You returned HTML. I need a JSON object starting with {. Try again." } as { role: "user"; content: string },
+      );
+      result = await chatCompletion(config, messages, { temperature: 0.3, maxTokens: 16000, jsonMode: true });
+    }
 
     // Check if response was truncated
     if (result.finishReason === "length") {
