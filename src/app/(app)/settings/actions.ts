@@ -217,8 +217,8 @@ export async function getProviderConfig(
     }
 
     // Case 2: No BYOK key → use hosted key (for subscribers and free-tier users)
-    const hostedKey = process.env.HOSTED_API_KEY;
-    const hostedProvider = (process.env.HOSTED_PROVIDER || "openrouter") as ProviderName;
+    const hostedKey = process.env.HOSTED_API_KEY?.trim();
+    const hostedProvider = (process.env.HOSTED_PROVIDER?.trim() || "openrouter") as ProviderName;
 
     if (hostedKey) {
       const config = buildProviderConfig(hostedProvider, hostedKey, model);

@@ -52,11 +52,11 @@ export function buildProviderConfig(
   apiKey: string,
   model: string
 ): ProviderConfig {
-  return {
-    baseUrl: PROVIDER_URLS[provider],
-    apiKey,
-    model,
-  };
+  const baseUrl = PROVIDER_URLS[provider];
+  if (!baseUrl) {
+    throw new Error(`Unknown provider: "${provider}". Expected "openrouter" or "venice".`);
+  }
+  return { baseUrl, apiKey, model };
 }
 
 /**
