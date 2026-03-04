@@ -6,7 +6,7 @@
  *
  * Routing rationale (verified March 2026):
  * - Profiling/Curriculum: Gemini 2.5 Pro — strong reasoning, 55% cheaper than Sonnet
- * - Lesson delivery: DeepSeek V3 — near-Sonnet quality at 90% cost reduction (dominant cost line)
+ * - Lesson delivery: Gemini 2.5 Flash — reliable JSON output, DeepSeek V3 was generating HTML instead of JSON
  * - Assessment: Gemini 2.5 Flash — better than Haiku, cheaper output pricing
  * - Grading: Gemini 2.5 Flash — outperforms Claude as LLM judge (JudgeBench)
  * - SRS extraction: GPT-5 Nano — dead simple pattern matching, cheapest option
@@ -33,7 +33,7 @@ export type TaskType =
 const OPENROUTER_TASK_MODELS: Record<TaskType, string> = {
   profiling: "google/gemini-2.5-pro",
   curriculum: "google/gemini-2.5-pro",
-  lesson: "deepseek/deepseek-chat",
+  lesson: "google/gemini-2.5-flash",
   assessment: "google/gemini-2.5-flash",
   grading: "google/gemini-2.5-flash",
   srs_extraction: "openai/gpt-5-nano",
