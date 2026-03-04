@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* ─── Surfaces (warm-tinted darks) ─── */
-  --color-surface-base:    #0F0E0D;
-  --color-surface-raised:  #161513;
-  --color-surface-overlay: #1E1C19;
-  --color-surface-high:    #262320;
-  --color-surface-highest: #2F2C28;
+  /* ─── Surfaces (cool near-black — Linear-inspired) ─── */
+  --color-surface-base:    #0a0a0c;
+  --color-surface-raised:  #111113;
+  --color-surface-overlay: #1a1a1d;
+  --color-surface-high:    #222225;
+  --color-surface-highest: #2a2a2e;
 
   /* ─── Text ─── */
-  --color-text-primary:   #EDEDEB;
-  --color-text-secondary: #A8A29E;
-  --color-text-tertiary:  #8A8480;
-  --color-text-disabled:  #57534E;
-  --color-text-inverse:   #0F0E0D;
+  --color-text-primary:   #eeeeef;
+  --color-text-secondary: #a8a8b0;
+  --color-text-tertiary:  #6e6e78;
+  --color-text-disabled:  #45454d;
+  --color-text-inverse:   #0a0a0c;
 
   /* ─── Amber Accent ─── */
-  --color-amber-dim:    #92400E;
-  --color-amber-muted:  #B45309;
+  --color-amber-dim:    #B45309;
+  --color-amber-muted:  #D97706;
   --color-amber-base:   #F59E0B;
   --color-amber-bright: #FBBF24;
   --color-amber-text:   #FCD34D;
@@ -35,14 +35,14 @@
   --color-mastery-mastered: #A78BFA;
 
   /* ─── Fonts ─── */
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
   /* ─── Radius ─── */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   12px;
-  --radius-xl:   16px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   18px;
   --radius-full: 9999px;
 }
 
@@ -53,46 +53,39 @@ html {
 }
 
 body {
-  background-color: #0F0E0D;
-  color: #EDEDEB;
+  background-color: #0a0a0c;
+  color: #eeeeef;
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
 }
 
 /* ─── Focus ring ─── */
 *:focus-visible {
-  outline: 2px solid #F59E0B;
+  outline: 2px solid rgba(245,158,11,0.6);
   outline-offset: 2px;
 }
 
-/* ─── Depth tokens ─── */
+/* ─── Depth tokens (Linear-inspired: minimal shadows, elevation via lightness) ─── */
 .shadow-card {
-  box-shadow:
-    0 1px 2px rgba(0,0,0,0.3),
-    0 4px 16px rgba(0,0,0,0.2),
-    inset 0 1px 0 rgba(255,251,235,0.03);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 .shadow-card-hover {
-  box-shadow:
-    0 4px 24px rgba(0,0,0,0.4),
-    0 8px 32px rgba(245,158,11,0.06),
-    inset 0 1px 0 rgba(255,251,235,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 .shadow-nav {
-  box-shadow:
-    1px 0 0 rgba(255,251,235,0.06),
-    4px 0 24px rgba(0,0,0,0.3);
+  box-shadow: 1px 0 0 rgba(255,255,255,0.06);
 }
 .shadow-button-primary {
   box-shadow:
     0 1px 2px rgba(0,0,0,0.3),
-    0 0 16px rgba(245,158,11,0.15);
+    0 0 12px rgba(245,158,11,0.12);
 }
 .shadow-button-primary-hover {
   box-shadow:
-    0 2px 8px rgba(0,0,0,0.3),
-    0 0 24px rgba(245,158,11,0.25);
+    0 2px 6px rgba(0,0,0,0.3),
+    0 0 20px rgba(245,158,11,0.2);
 }
 
 /* ─── Subtle page noise texture ─── */
@@ -102,9 +95,9 @@ body {
 
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #161513; }
-::-webkit-scrollbar-thumb { background: #2F2C28; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #3A3733; }
+::-webkit-scrollbar-track { background: #111113; }
+::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #35353a; }
 
 /* ─── Shimmer animation ─── */
 @keyframes shimmer {
@@ -115,9 +108,9 @@ body {
 .shimmer {
   background: linear-gradient(
     90deg,
-    rgba(255,251,235,0.0) 0%,
-    rgba(255,251,235,0.06) 50%,
-    rgba(255,251,235,0.0) 100%
+    rgba(255,255,255,0.0) 0%,
+    rgba(255,255,255,0.04) 50%,
+    rgba(255,255,255,0.0) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
@@ -125,8 +118,8 @@ body {
 
 /* ─── Skeleton base ─── */
 .skeleton {
-  background-color: rgba(255,251,235,0.06);
-  border-radius: 4px;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 6px;
   position: relative;
   overflow: hidden;
 }
@@ -137,7 +130,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255,251,235,0.08) 50%,
+    rgba(255,255,255,0.06) 50%,
     transparent 100%
   );
   background-size: 200% 100%;
@@ -148,15 +141,15 @@ body {
 .lesson-prose {
   font-size: 1.0625rem;
   line-height: 1.75;
-  color: #EDEDEB;
+  color: #eeeeef;
   max-width: 65ch;
 }
 .lesson-prose h1,
 .lesson-prose h2,
 .lesson-prose h3 {
   font-weight: 600;
-  color: #EDEDEB;
-  letter-spacing: -0.01em;
+  color: #eeeeef;
+  letter-spacing: -0.02em;
   margin-top: 1.75em;
   margin-bottom: 0.625em;
 }
@@ -167,20 +160,20 @@ body {
 .lesson-prose ul { margin-bottom: 1.25em; padding-left: 1.5em; }
 .lesson-prose li { margin-bottom: 0.5em; }
 .lesson-prose li::marker { color: #F59E0B; }
-.lesson-prose strong { font-weight: 600; color: #EDEDEB; }
-.lesson-prose em { color: #A8A29E; }
+.lesson-prose strong { font-weight: 600; color: #eeeeef; }
+.lesson-prose em { color: #a8a8b0; }
 .lesson-prose code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background: #262320;
+  background: #222225;
   color: #FBBF24;
   padding: 0.15em 0.4em;
   border-radius: 4px;
 }
 .lesson-prose pre {
-  background: #161513;
-  border: 1px solid rgba(255,251,235,0.10);
-  border-radius: 8px;
+  background: #111113;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
   padding: 1.25rem;
   overflow-x: auto;
   margin-bottom: 1.25em;
@@ -188,7 +181,7 @@ body {
 .lesson-prose pre code {
   background: transparent;
   padding: 0;
-  color: #EDEDEB;
+  color: #eeeeef;
   font-size: 0.875rem;
 }
 
@@ -215,6 +208,35 @@ body {
 }
 .animate-in-delay-3 {
   animation: fade-in-up 0.4s ease-out 0.15s both;
+}
+
+/* ─── Scroll-triggered reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Pulse animation for active indicators ─── */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* ─── Progress fill animation ─── */
+@keyframes fill-progress {
+  from { width: 0; }
+}
+.animate-fill {
+  animation: fill-progress 1.2s ease-out both;
+  animation-delay: 0.3s;
 }
 
 /* ─── Modal backdrop ─── */

@@ -135,7 +135,7 @@ export default function MasteryTestPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
               </svg>
             </div>
-            <p className="text-sm text-[#A8A29E]">{error}</p>
+            <p className="text-sm text-[#a8a8b0]">{error}</p>
             <Button variant="secondary" onClick={() => router.push(`/topics/${topicId}`)}>
               Back to Topic
             </Button>
@@ -151,7 +151,7 @@ export default function MasteryTestPage() {
         <Card>
           <div className="flex flex-col items-center justify-center py-12">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-            <p className="mt-4 text-[#EDEDEB]">
+            <p className="mt-4 text-[#eeeeef]">
               {phase === "loading" ? "Generating mastery test..." : "Evaluating your answers..."}
             </p>
           </div>
@@ -163,7 +163,7 @@ export default function MasteryTestPage() {
   if (phase === "results") {
     return (
       <div className="mx-auto max-w-2xl py-12 animate-in">
-        <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em] mb-6">Mastery Test Results</h1>
+        <h1 className="text-2xl font-bold text-[#eeeeef] tracking-[-0.025em] mb-6">Mastery Test Results</h1>
 
         <Card>
           <div className="space-y-6">
@@ -180,17 +180,17 @@ export default function MasteryTestPage() {
               >
                 {passed ? "PASSED" : "NOT PASSED"}
               </Badge>
-              <p className="mt-3 text-[#EDEDEB]">{statusMessage}</p>
+              <p className="mt-3 text-[#eeeeef]">{statusMessage}</p>
             </div>
 
             {/* Area breakdown */}
             <div className="border-t border-white/[0.08] pt-4">
-              <h3 className="text-sm font-medium text-[#A8A29E] mb-3">Score by Area</h3>
+              <h3 className="text-sm font-medium text-[#a8a8b0] mb-3">Score by Area</h3>
               <div className="space-y-3">
                 {Object.entries(areaScores).map(([area, areaScore]) => (
                   <div key={area}>
                     <div className="flex items-center justify-between text-sm mb-1">
-                      <span className="text-[#EDEDEB]">{area}</span>
+                      <span className="text-[#eeeeef]">{area}</span>
                       <span className={
                         areaScore >= 80 ? "text-green-400" :
                         areaScore >= 60 ? "text-amber-400" : "text-red-400"
@@ -231,8 +231,8 @@ export default function MasteryTestPage() {
             )}
 
             {resultStatus === "skipped_gap" && (
-              <div className="rounded-[8px] border border-white/[0.16] bg-[#262320]/50 p-4">
-                <p className="text-sm text-[#A8A29E]">
+              <div className="rounded-[8px] border border-white/[0.16] bg-[#222225]/50 p-4">
+                <p className="text-sm text-[#a8a8b0]">
                   This module has been marked as a knowledge gap. It is visible on your dashboard
                   and you can revisit it later. The next module has been unlocked so you can continue.
                 </p>
@@ -282,8 +282,8 @@ export default function MasteryTestPage() {
     return (
       <div className="mx-auto max-w-2xl py-12">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-semibold text-[#EDEDEB]">Mastery Test</h1>
-          <span className="text-sm text-[#8A8480]">
+          <h1 className="text-xl font-semibold text-[#eeeeef]">Mastery Test</h1>
+          <span className="text-sm text-[#6e6e78]">
             {currentIdx + 1} of {questions.length}
           </span>
         </div>
@@ -296,10 +296,10 @@ export default function MasteryTestPage() {
               <Badge variant={currentQuestion.type === "mc" ? "info" : "warning"}>
                 {currentQuestion.type === "mc" ? "Multiple Choice" : "Open-Ended"}
               </Badge>
-              <span className="text-xs text-[#8A8480]">{currentQuestion.area}</span>
+              <span className="text-xs text-[#6e6e78]">{currentQuestion.area}</span>
             </div>
 
-            <p className="text-[#EDEDEB] text-lg">{currentQuestion.question}</p>
+            <p className="text-[#eeeeef] text-lg">{currentQuestion.question}</p>
 
             {/* MC options */}
             {currentQuestion.type === "mc" && currentQuestion.options && (
@@ -310,8 +310,8 @@ export default function MasteryTestPage() {
                     onClick={() => setSelectedAnswer(option)}
                     className={`w-full rounded-[8px] border px-4 py-3.5 text-left text-[15px] transition-all duration-150 min-h-[48px] ${
                       selectedAnswer === option
-                        ? "border-amber-500 bg-amber-500/10 text-[#EDEDEB]"
-                        : "border-white/[0.10] bg-[#161513] text-[#EDEDEB] hover:border-white/[0.18]"
+                        ? "border-amber-500 bg-amber-500/10 text-[#eeeeef]"
+                        : "border-white/[0.10] bg-[#111113] text-[#eeeeef] hover:border-white/[0.18]"
                     }`}
                   >
                     {option}
@@ -381,7 +381,7 @@ export default function MasteryTestPage() {
       <Card>
         <div className="flex flex-col items-center justify-center py-12">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-          <p className="mt-4 text-[#A8A29E]">Loading...</p>
+          <p className="mt-4 text-[#a8a8b0]">Loading...</p>
         </div>
       </Card>
     </div>

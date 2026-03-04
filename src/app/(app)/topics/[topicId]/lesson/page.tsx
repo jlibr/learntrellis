@@ -197,7 +197,7 @@ export default function LessonPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
               </svg>
             </div>
-            <p className="text-sm text-[#A8A29E]">{error}</p>
+            <p className="text-sm text-[#a8a8b0]">{error}</p>
             <Button variant="secondary" onClick={() => router.push(`/topics/${topicId}`)}>
               Back to Topic
             </Button>
@@ -213,8 +213,8 @@ export default function LessonPage() {
         <Card>
           <div className="flex flex-col items-center justify-center py-12">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-            <p className="mt-4 text-[#EDEDEB]">Preparing your lesson...</p>
-            <p className="mt-1 text-sm text-[#8A8480]">This may take a moment</p>
+            <p className="mt-4 text-[#eeeeef]">Preparing your lesson...</p>
+            <p className="mt-1 text-sm text-[#6e6e78]">This may take a moment</p>
           </div>
         </Card>
       </div>
@@ -231,8 +231,8 @@ export default function LessonPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
             </div>
-            <h2 className="text-xl font-semibold text-[#EDEDEB]">Lesson Complete</h2>
-            <p className="text-[#A8A29E]">Loading next step...</p>
+            <h2 className="text-xl font-semibold text-[#eeeeef]">Lesson Complete</h2>
+            <p className="text-[#a8a8b0]">Loading next step...</p>
           </div>
         </Card>
       </div>
@@ -244,8 +244,8 @@ export default function LessonPage() {
       <div className="mx-auto max-w-3xl py-12">
         <Card>
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-[#EDEDEB]">How did that feel?</h2>
-            <p className="text-sm text-[#A8A29E]">
+            <h2 className="text-xl font-semibold text-[#eeeeef]">How did that feel?</h2>
+            <p className="text-sm text-[#a8a8b0]">
               Your feedback helps us calibrate future lessons.
             </p>
 
@@ -264,7 +264,7 @@ export default function LessonPage() {
                     {option === "easy" ? "\u{1F60A}" : option === "right" ? "\u{1F44D}" : "\u{1F4AA}"}
                   </span>
                   <p className={`mt-2 text-sm font-medium ${
-                    pulse === option ? "text-amber-400" : "text-[#EDEDEB]"
+                    pulse === option ? "text-amber-400" : "text-[#eeeeef]"
                   }`}>
                     {option === "easy" ? "Too Easy" : option === "right" ? "Just Right" : "Challenging"}
                   </p>
@@ -275,7 +275,7 @@ export default function LessonPage() {
             {/* Practice summary */}
             {Object.keys(grades).length > 0 && (
               <div className="border-t border-white/[0.08] pt-4">
-                <p className="text-sm text-[#A8A29E] mb-2">Practice Results:</p>
+                <p className="text-sm text-[#a8a8b0] mb-2">Practice Results:</p>
                 <div className="space-y-1">
                   {Object.entries(grades).map(([idx, result]) => (
                     <div key={idx} className="flex items-center gap-2 text-sm">
@@ -286,7 +286,7 @@ export default function LessonPage() {
                       }>
                         {result.grade === "correct" || result.grade === "excellent" ? "+" : "-"}
                       </span>
-                      <span className="text-[#A8A29E]">Q{Number(idx) + 1}: {result.grade}</span>
+                      <span className="text-[#a8a8b0]">Q{Number(idx) + 1}: {result.grade}</span>
                     </div>
                   ))}
                 </div>
@@ -309,14 +309,14 @@ export default function LessonPage() {
     return (
       <div className="mx-auto max-w-[720px] px-6 py-8">
         {/* Sticky lesson header */}
-        <div className="sticky top-0 z-10 h-14 flex items-center justify-between px-6 -mx-6 bg-[#0F0E0D]/90 backdrop-blur-[8px] border-b border-white/[0.06]">
+        <div className="sticky top-0 z-10 h-14 flex items-center justify-between px-6 -mx-6 bg-[#0a0a0c]/90 backdrop-blur-[8px] border-b border-white/[0.06]">
           <button
             onClick={() => router.push(`/topics/${topicId}`)}
-            className="text-sm text-[#A8A29E] hover:text-[#EDEDEB] transition-colors"
+            className="text-sm text-[#a8a8b0] hover:text-[#eeeeef] transition-colors"
           >
             &larr; Back to Topic
           </button>
-          <span className="text-sm text-[#8A8480]">Lesson</span>
+          <span className="text-sm text-[#6e6e78]">Lesson</span>
         </div>
 
         {/* Objective */}
@@ -324,7 +324,7 @@ export default function LessonPage() {
           <h2 className="text-sm font-medium text-amber-500 uppercase tracking-wide">
             Objective
           </h2>
-          <p className="mt-2 text-lg text-[#EDEDEB]">{content.objective}</p>
+          <p className="mt-2 text-lg text-[#eeeeef]">{content.objective}</p>
         </section>
 
         {/* Why it matters */}
@@ -332,7 +332,7 @@ export default function LessonPage() {
           <h2 className="text-sm font-medium text-amber-500 uppercase tracking-wide">
             Why This Matters
           </h2>
-          <p className="mt-2 text-[#EDEDEB]">{content.whyItMatters}</p>
+          <p className="mt-2 text-[#eeeeef]">{content.whyItMatters}</p>
         </section>
 
         {/* Core material */}
@@ -384,7 +384,7 @@ export default function LessonPage() {
           )}
           <ul className="mt-3 space-y-2">
             {content.keyTakeaways.map((takeaway, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-[#EDEDEB]">
+              <li key={idx} className="flex items-start gap-2 text-[#eeeeef]">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
                 {takeaway}
               </li>
@@ -400,19 +400,19 @@ export default function LessonPage() {
           <Card className="mt-3">
             <div className="space-y-4">
               <div>
-                <p className="text-xs font-medium text-[#8A8480] uppercase">Problem</p>
-                <p className="mt-1 text-[#EDEDEB]">{content.workedExample.problem}</p>
+                <p className="text-xs font-medium text-[#6e6e78] uppercase">Problem</p>
+                <p className="mt-1 text-[#eeeeef]">{content.workedExample.problem}</p>
               </div>
               <div>
-                <p className="text-xs font-medium text-[#8A8480] uppercase">Solution</p>
+                <p className="text-xs font-medium text-[#6e6e78] uppercase">Solution</p>
                 <div
-                  className="mt-1 text-[#EDEDEB]"
+                  className="mt-1 text-[#eeeeef]"
                   dangerouslySetInnerHTML={{ __html: markdownToHtml(content.workedExample.solution) }}
                 />
               </div>
               <div>
-                <p className="text-xs font-medium text-[#8A8480] uppercase">Why This Works</p>
-                <p className="mt-1 text-[#A8A29E]">{content.workedExample.explanation}</p>
+                <p className="text-xs font-medium text-[#6e6e78] uppercase">Why This Works</p>
+                <p className="mt-1 text-[#a8a8b0]">{content.workedExample.explanation}</p>
               </div>
             </div>
           </Card>
@@ -435,8 +435,8 @@ export default function LessonPage() {
     return (
       <div className="mx-auto max-w-2xl py-12">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-medium text-[#EDEDEB]">Practice</h2>
-          <span className="text-sm text-[#8A8480]">
+          <h2 className="text-lg font-medium text-[#eeeeef]">Practice</h2>
+          <span className="text-sm text-[#6e6e78]">
             {currentQuestionIdx + 1} of {content.practiceQuestions.length}
           </span>
         </div>
@@ -461,7 +461,7 @@ export default function LessonPage() {
               />
             )}
 
-            <p className="text-[#EDEDEB] text-lg">{currentQuestion.question}</p>
+            <p className="text-[#eeeeef] text-lg">{currentQuestion.question}</p>
 
             {/* MC options */}
             {currentQuestion.type === "mc" && currentQuestion.options && (
@@ -480,10 +480,10 @@ export default function LessonPage() {
                           ? "border-green-500 bg-green-500/10 text-green-300"
                           : selectedAnswer === option
                           ? "border-red-500 bg-red-500/10 text-red-300"
-                          : "border-white/[0.06] text-[#57534E]"
+                          : "border-white/[0.06] text-[#45454d]"
                         : selectedAnswer === option
-                        ? "border-amber-500 bg-amber-500/10 text-[#EDEDEB]"
-                        : "border-white/[0.10] bg-[#161513] text-[#EDEDEB] hover:border-white/[0.18]"
+                        ? "border-amber-500 bg-amber-500/10 text-[#eeeeef]"
+                        : "border-white/[0.10] bg-[#111113] text-[#eeeeef] hover:border-white/[0.18]"
                     }`}
                   >
                     {option}
@@ -536,12 +536,12 @@ export default function LessonPage() {
                 }`}>
                   {gradeResult.grade.charAt(0).toUpperCase() + gradeResult.grade.slice(1)}
                 </p>
-                <p className="mt-1 text-sm text-[#EDEDEB]">{gradeResult.feedback}</p>
+                <p className="mt-1 text-sm text-[#eeeeef]">{gradeResult.feedback}</p>
 
                 {showExplanation && currentQuestion.explanation && (
                   <div className="mt-3 border-t border-white/[0.08] pt-3">
-                    <p className="text-xs text-[#8A8480] uppercase font-medium">Explanation</p>
-                    <p className="mt-1 text-sm text-[#A8A29E]">{currentQuestion.explanation}</p>
+                    <p className="text-xs text-[#6e6e78] uppercase font-medium">Explanation</p>
+                    <p className="mt-1 text-sm text-[#a8a8b0]">{currentQuestion.explanation}</p>
                   </div>
                 )}
               </div>
@@ -590,7 +590,7 @@ export default function LessonPage() {
       <Card>
         <div className="flex flex-col items-center justify-center py-12">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-          <p className="mt-4 text-[#A8A29E]">Loading...</p>
+          <p className="mt-4 text-[#a8a8b0]">Loading...</p>
         </div>
       </Card>
     </div>

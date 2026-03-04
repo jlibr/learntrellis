@@ -81,7 +81,7 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
       <div
         ref={dialogRef}
         className={cn(
-          "w-full max-w-[560px] rounded-[16px] border border-white/[0.12] bg-[#1E1C19] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,251,235,0.08)] max-h-[90vh] overflow-y-auto",
+          "w-full max-w-[560px] rounded-[16px] border border-white/[0.12] bg-[#1a1a1d] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.08)] max-h-[90vh] overflow-y-auto",
           className
         )}
         role="dialog"
@@ -90,10 +90,10 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
       >
         {title && (
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-[#EDEDEB]">{title}</h2>
+            <h2 className="text-xl font-semibold text-[#eeeeef]">{title}</h2>
             <button
               onClick={onClose}
-              className="text-[#8A8480] hover:text-[#A8A29E] transition-colors h-11 w-11 flex items-center justify-center"
+              className="text-[#6e6e78] hover:text-[#a8a8b0] transition-colors h-11 w-11 flex items-center justify-center"
               aria-label="Close"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">

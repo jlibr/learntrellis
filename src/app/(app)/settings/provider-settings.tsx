@@ -129,7 +129,7 @@ export function ProviderSettings({
 
       {/* Provider Selection */}
       <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#EDEDEB]">
+        <label className="block text-sm font-medium text-[#eeeeef]">
           Provider
         </label>
         <div className="grid grid-cols-2 gap-3">
@@ -141,18 +141,18 @@ export function ProviderSettings({
               className={`rounded-[8px] border p-3 text-left transition-colors duration-150 cursor-pointer ${
                 selectedProvider === p.id
                   ? "border-amber-500 bg-amber-500/5"
-                  : "border-white/[0.12] bg-[#262320]/50 hover:border-white/[0.16]"
+                  : "border-white/[0.12] bg-[#222225]/50 hover:border-white/[0.16]"
               }`}
             >
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-[#EDEDEB]">
+                <span className="text-sm font-medium text-[#eeeeef]">
                   {p.name}
                 </span>
                 {currentProvider === p.id && hasKey && (
                   <Badge variant="success">Active</Badge>
                 )}
               </div>
-              <p className="mt-1 text-xs text-[#8A8480]">{p.description}</p>
+              <p className="mt-1 text-xs text-[#6e6e78]">{p.description}</p>
             </button>
           ))}
         </div>
@@ -176,7 +176,7 @@ export function ProviderSettings({
           </div>
         </div>
 
-        <p className="mt-2 text-xs text-[#8A8480]">
+        <p className="mt-2 text-xs text-[#6e6e78]">
           Get your key from{" "}
           <a
             href={

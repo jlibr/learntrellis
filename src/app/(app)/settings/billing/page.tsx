@@ -15,8 +15,8 @@ export default async function BillingPage() {
 
   return (
     <div className="mx-auto max-w-xl">
-      <h1 className="text-2xl font-semibold text-[#EDEDEB]">Billing</h1>
-      <p className="mt-2 text-sm text-[#A8A29E]">
+      <h1 className="text-2xl font-semibold text-[#eeeeef]">Billing</h1>
+      <p className="mt-2 text-sm text-[#a8a8b0]">
         Manage your subscription and payment methods.
       </p>
 

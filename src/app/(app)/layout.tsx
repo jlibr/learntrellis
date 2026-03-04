@@ -17,7 +17,7 @@ export default async function AppLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-[#0F0E0D]">
+    <div className="flex min-h-screen bg-[#0a0a0c]">
       <AppNav user={user} />
       <main className="flex-1 min-w-0 overflow-y-auto">
         <div className="mx-auto max-w-[960px] px-6 py-8 pb-24 lg:pb-8">

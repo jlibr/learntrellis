@@ -26,7 +26,7 @@ export function AppNav({ user }: { user: User }) {
   return (
     <>
       {/* Desktop sidebar */}
-      <nav className="hidden w-[240px] shrink-0 bg-[#0C0B0A] shadow-nav lg:block" aria-label="Main navigation">
+      <nav className="hidden w-[240px] shrink-0 border-r border-white/[0.06] bg-[#08080a] lg:block" aria-label="Main navigation">
         <div className="flex h-full flex-col">
           {/* Logo */}
           <div className="px-5 py-7">
@@ -35,9 +35,9 @@ export function AppNav({ user }: { user: User }) {
               className="group flex items-center gap-2.5"
             >
               <div className="flex h-7 w-7 items-center justify-center rounded-[6px] bg-gradient-to-b from-amber-400 to-amber-500 shadow-button-primary">
-                <span className="text-sm font-bold text-[#0F0E0D]">L</span>
+                <span className="text-sm font-bold text-[#0a0a0c]">L</span>
               </div>
-              <span className="text-[15px] font-semibold text-[#EDEDEB] tracking-[-0.01em] group-hover:text-white transition-colors">
+              <span className="text-[15px] font-semibold text-[#eeeeef] tracking-[-0.02em] group-hover:text-white transition-colors">
                 LearnTrellis
               </span>
             </Link>
@@ -54,13 +54,13 @@ export function AppNav({ user }: { user: User }) {
                   className={cn(
                     "group flex items-center gap-3 rounded-[8px] px-3 py-2.5 text-[13px] font-medium transition-all duration-100",
                     isActive
-                      ? "bg-white/[0.08] text-[#EDEDEB] shadow-[inset_0_1px_0_rgba(255,251,235,0.04)]"
-                      : "text-[#8A8480] hover:bg-white/[0.04] hover:text-[#A8A29E]"
+                      ? "bg-white/[0.06] text-[#eeeeef]"
+                      : "text-[#6e6e78] hover:bg-white/[0.03] hover:text-[#a8a8b0]"
                   )}
                 >
                   <item.icon className={cn(
                     "h-[18px] w-[18px] transition-colors",
-                    isActive ? "text-amber-400" : "text-[#57534E] group-hover:text-[#8A8480]"
+                    isActive ? "text-amber-400" : "text-[#45454d] group-hover:text-[#6e6e78]"
                   )} />
                   {item.label}
                 </Link>
@@ -71,17 +71,17 @@ export function AppNav({ user }: { user: User }) {
           {/* User section */}
           <div className="border-t border-white/[0.06] px-3 py-4">
             <div className="flex items-center gap-3 rounded-[8px] px-3 py-2">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#262320] text-xs font-medium text-[#A8A29E]">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1a1a1d] text-xs font-medium text-[#a8a8b0]">
                 {(user.email?.[0] || "?").toUpperCase()}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[13px] text-[#A8A29E]">
+                <p className="truncate text-[13px] text-[#a8a8b0]">
                   {user.email}
                 </p>
               </div>
               <button
                 onClick={handleLogout}
-                className="shrink-0 rounded-[6px] p-1.5 text-[#57534E] hover:bg-white/[0.06] hover:text-[#A8A29E] transition-all"
+                className="shrink-0 rounded-[6px] p-1.5 text-[#45454d] hover:bg-white/[0.05] hover:text-[#a8a8b0] transition-all"
                 title="Sign out"
               >
                 <LogOutIcon className="h-4 w-4" />
@@ -92,7 +92,7 @@ export function AppNav({ user }: { user: User }) {
       </nav>
 
       {/* Mobile bottom tab bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-white/[0.08] bg-[#0C0B0A]/95 backdrop-blur-md px-2 pb-[env(safe-area-inset-bottom)] lg:hidden" aria-label="Mobile navigation">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-white/[0.06] bg-[#08080a]/95 backdrop-blur-md px-2 pb-[env(safe-area-inset-bottom)] lg:hidden" aria-label="Mobile navigation">
         {navItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
           return (
@@ -103,7 +103,7 @@ export function AppNav({ user }: { user: User }) {
                 "flex flex-col items-center gap-1 px-3 py-3 min-h-[48px] min-w-[48px] text-[11px] font-medium transition-colors duration-100",
                 isActive
                   ? "text-amber-400"
-                  : "text-[#8A8480]"
+                  : "text-[#6e6e78]"
               )}
             >
               <item.icon className="h-5 w-5" />
@@ -113,7 +113,7 @@ export function AppNav({ user }: { user: User }) {
         })}
         <button
           onClick={handleLogout}
-          className="flex flex-col items-center gap-1 px-3 py-3 min-h-[48px] min-w-[48px] text-[11px] font-medium text-[#57534E] transition-colors"
+          className="flex flex-col items-center gap-1 px-3 py-3 min-h-[48px] min-w-[48px] text-[11px] font-medium text-[#45454d] transition-colors"
         >
           <LogOutIcon className="h-5 w-5" />
           Sign out

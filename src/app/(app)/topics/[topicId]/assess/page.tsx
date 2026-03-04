@@ -257,7 +257,7 @@ export default function AssessPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
               </svg>
             </div>
-            <p className="text-sm text-[#A8A29E]">{error}</p>
+            <p className="text-sm text-[#a8a8b0]">{error}</p>
             <Button variant="secondary" onClick={() => { setError(null); setPhase("loading"); }}>
               Try Again
             </Button>
@@ -273,22 +273,22 @@ export default function AssessPage() {
         <Card>
           <div className="text-center py-8">
             <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-            <p className="text-[#EDEDEB] font-medium">
+            <p className="text-[#eeeeef] font-medium">
               {curriculumGenerating
                 ? "Building your personalized curriculum..."
                 : "Analyzing your responses..."}
             </p>
-            <p className="mt-2 text-sm text-[#8A8480]">This may take a moment</p>
+            <p className="mt-2 text-sm text-[#6e6e78]">This may take a moment</p>
           </div>
         </Card>
 
         {dimensionResults.length > 0 && (
           <Card className="mt-6">
-            <h3 className="text-sm font-medium text-[#EDEDEB] mb-3">Assessment Summary</h3>
+            <h3 className="text-sm font-medium text-[#eeeeef] mb-3">Assessment Summary</h3>
             <div className="space-y-2">
               {dimensionResults.map((r) => (
                 <div key={r.name} className="flex items-center justify-between text-sm">
-                  <span className="text-[#A8A29E]">{r.name}</span>
+                  <span className="text-[#a8a8b0]">{r.name}</span>
                   <span
                     className={
                       r.signal === "strong"
@@ -312,8 +312,8 @@ export default function AssessPage() {
   if (phase === "loading" || phase === "evaluating") {
     return (
       <div className="mx-auto max-w-2xl py-12">
-        <h1 className="text-2xl font-semibold text-[#EDEDEB]">Baseline Assessment</h1>
-        <p className="mt-2 text-sm text-[#A8A29E]">
+        <h1 className="text-2xl font-semibold text-[#eeeeef]">Baseline Assessment</h1>
+        <p className="mt-2 text-sm text-[#a8a8b0]">
           {phase === "loading" ? "Preparing your next question..." : "Evaluating your answer..."}
         </p>
         <div className="mt-6">
@@ -332,7 +332,7 @@ export default function AssessPage() {
   if (phase === "followup") {
     return (
       <div className="mx-auto max-w-2xl py-12">
-        <h1 className="text-2xl font-semibold text-[#EDEDEB]">Baseline Assessment</h1>
+        <h1 className="text-2xl font-semibold text-[#eeeeef]">Baseline Assessment</h1>
         <div className="mt-4">
           <Progress value={progressPercent} label="Assessment progress" />
         </div>
@@ -340,10 +340,10 @@ export default function AssessPage() {
         <Card className="mt-6">
           <div className="space-y-4">
             <p className="text-sm text-amber-400">Follow-up question</p>
-            <p className="text-[#EDEDEB]">
+            <p className="text-[#eeeeef]">
               Can you explain your reasoning? Why did you choose that answer for:
             </p>
-            <p className="text-sm text-[#A8A29E] italic">{currentQuestion?.question}</p>
+            <p className="text-sm text-[#a8a8b0] italic">{currentQuestion?.question}</p>
 
             <Textarea
               placeholder="Explain your understanding in your own words..."
@@ -373,7 +373,7 @@ export default function AssessPage() {
   return (
     <div className="mx-auto max-w-2xl py-12">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-[#EDEDEB]">Baseline Assessment</h1>
+        <h1 className="text-2xl font-semibold text-[#eeeeef]">Baseline Assessment</h1>
         <Button
           variant="ghost"
           size="sm"
@@ -382,7 +382,7 @@ export default function AssessPage() {
           Exit
         </Button>
       </div>
-      <p className="mt-2 text-sm text-[#A8A29E]">
+      <p className="mt-2 text-sm text-[#a8a8b0]">
         Answer questions to help us understand your current level.
       </p>
       <div className="mt-4">
@@ -393,15 +393,15 @@ export default function AssessPage() {
         <Card className="mt-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-[#8A8480]">
+              <span className="text-xs text-[#6e6e78]">
                 Dimension: {dimensions[currentDimIndex]?.name}
               </span>
-              <span className="text-xs text-[#8A8480]">
+              <span className="text-xs text-[#6e6e78]">
                 {currentDimIndex + 1} of {dimensions.length}
               </span>
             </div>
 
-            <p className="text-[#EDEDEB] text-lg">{currentQuestion.question}</p>
+            <p className="text-[#eeeeef] text-lg">{currentQuestion.question}</p>
 
             {currentQuestion.type === "mc" && currentQuestion.options ? (
               <div className="space-y-2">
@@ -411,8 +411,8 @@ export default function AssessPage() {
                     onClick={() => setSelectedAnswer(option)}
                     className={`w-full rounded-[8px] border px-4 py-3.5 text-left text-[15px] transition-all duration-150 min-h-[48px] ${
                       selectedAnswer === option
-                        ? "border-amber-500 bg-amber-500/10 text-[#EDEDEB]"
-                        : "border-white/[0.10] bg-[#161513] text-[#EDEDEB] hover:border-white/[0.18]"
+                        ? "border-amber-500 bg-amber-500/10 text-[#eeeeef]"
+                        : "border-white/[0.10] bg-[#111113] text-[#eeeeef] hover:border-white/[0.18]"
                     }`}
                   >
                     {option}
@@ -425,7 +425,7 @@ export default function AssessPage() {
                   className={`w-full rounded-[8px] border px-4 py-3.5 text-left text-[15px] transition-all duration-150 min-h-[48px] ${
                     selectedAnswer === "Narrowed to 2"
                       ? "border-blue-500 bg-blue-500/10 text-blue-300"
-                      : "border-white/[0.06] bg-[#0F0E0D] text-[#57534E] hover:border-white/[0.10]"
+                      : "border-white/[0.06] bg-[#0a0a0c] text-[#45454d] hover:border-white/[0.10]"
                   }`}
                 >
                   I narrowed it down to 2 options

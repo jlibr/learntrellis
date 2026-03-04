@@ -15,27 +15,27 @@ export default async function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-xl">
-      <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em] animate-in">Settings</h1>
+      <h1 className="text-[28px] font-semibold text-[#eeeeef] tracking-[-0.025em] animate-in">Settings</h1>
 
       <div className="mt-8 space-y-8 animate-in-delay-1">
         {/* Profile Section */}
         <section>
-          <h2 className="text-lg font-medium text-[#EDEDEB]">Profile</h2>
-          <div className="mt-4 rounded-[12px] border border-white/[0.08] bg-gradient-to-b from-[#1A1816] to-[#161513] p-6 shadow-card">
+          <h2 className="text-[17px] font-medium text-[#eeeeef] tracking-[-0.02em]">Profile</h2>
+          <div className="mt-4 rounded-[14px] border border-white/[0.07] bg-[#111113] p-6">
             <dl className="space-y-4">
               <div>
-                <dt className="text-sm text-[#8A8480]">Email</dt>
-                <dd className="mt-1 text-sm text-[#EDEDEB]">{user!.email}</dd>
+                <dt className="text-[13px] text-[#6e6e78]">Email</dt>
+                <dd className="mt-1 text-[14px] text-[#eeeeef]">{user!.email}</dd>
               </div>
               <div>
-                <dt className="text-sm text-[#8A8480]">Display Name</dt>
-                <dd className="mt-1 text-sm text-[#EDEDEB]">
+                <dt className="text-[13px] text-[#6e6e78]">Display Name</dt>
+                <dd className="mt-1 text-[14px] text-[#eeeeef]">
                   {profile?.display_name || "Not set"}
                 </dd>
               </div>
               <div>
-                <dt className="text-sm text-[#8A8480]">Timezone</dt>
-                <dd className="mt-1 text-sm text-[#EDEDEB]">
+                <dt className="text-[13px] text-[#6e6e78]">Timezone</dt>
+                <dd className="mt-1 text-[14px] text-[#eeeeef]">
                   {profile?.timezone || "UTC"}
                 </dd>
               </div>
@@ -45,8 +45,8 @@ export default async function SettingsPage() {
 
         {/* API Provider Section */}
         <section>
-          <h2 className="text-lg font-medium text-[#EDEDEB]">API Provider</h2>
-          <p className="mt-1 text-sm text-[#8A8480]">
+          <h2 className="text-[17px] font-medium text-[#eeeeef] tracking-[-0.02em]">API Provider</h2>
+          <p className="mt-1 text-[13px] text-[#6e6e78]">
             Connect your own API key to use LearnTrellis, or subscribe for hosted access.
           </p>
           <div className="mt-4">
@@ -60,13 +60,13 @@ export default async function SettingsPage() {
 
         {/* Subscription Section */}
         <section>
-          <h2 className="text-lg font-medium text-[#EDEDEB]">Subscription</h2>
-          <div className="mt-4 rounded-[12px] border border-white/[0.08] bg-gradient-to-b from-[#1A1816] to-[#161513] p-6 shadow-card">
+          <h2 className="text-[17px] font-medium text-[#eeeeef] tracking-[-0.02em]">Subscription</h2>
+          <div className="mt-4 rounded-[14px] border border-white/[0.07] bg-[#111113] p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-[#A8A29E]">
+                <p className="text-[14px] text-[#a8a8b0]">
                   Status:{" "}
-                  <span className="font-medium text-[#EDEDEB]">
+                  <span className="font-medium text-[#eeeeef]">
                     {profile?.subscription_status === "active"
                       ? "Active"
                       : profile?.subscription_status === "canceled"
@@ -75,14 +75,14 @@ export default async function SettingsPage() {
                   </span>
                 </p>
                 {profile?.subscription_status !== "active" && !profile?.api_provider && (
-                  <p className="mt-2 text-xs text-[#8A8480]">
+                  <p className="mt-2 text-[12px] text-[#6e6e78]">
                     Add an API key above or subscribe for hosted access.
                   </p>
                 )}
               </div>
               <a
                 href="/settings/billing"
-                className="text-sm text-amber-500 hover:text-amber-400 transition-colors"
+                className="text-[13px] text-amber-400 hover:text-amber-300 transition-colors"
               >
                 Manage billing
               </a>

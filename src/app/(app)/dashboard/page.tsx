@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -38,10 +37,10 @@ export default async function DashboardPage() {
 
   if (!topics || topics.length === 0) {
     return (
-      <div className="mx-auto max-w-2xl py-24 text-center">
+      <div className="mx-auto max-w-2xl py-24 text-center animate-in">
         <div className="mb-6">
           <svg
-            className="mx-auto h-16 w-16 text-[#57534E]"
+            className="mx-auto h-16 w-16 text-[#45454d]"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1}
@@ -54,15 +53,15 @@ export default async function DashboardPage() {
             />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">
+        <h1 className="text-[28px] font-semibold text-[#eeeeef] tracking-[-0.025em]">
           Welcome to LearnTrellis
         </h1>
-        <p className="mt-3 text-[#A8A29E]">
+        <p className="mt-3 text-[15px] text-[#a8a8b0]">
           Start your first learning topic and let AI build a personalized
           curriculum for you.
         </p>
         <Link href="/topics/new">
-          <Button variant="primary" className="mt-6">
+          <Button variant="primary" size="lg" className="mt-8">
             Create your first topic
           </Button>
         </Link>
@@ -228,7 +227,7 @@ export default async function DashboardPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8 animate-in">
-        <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">Your Topics</h1>
+        <h1 className="text-[28px] font-semibold text-[#eeeeef] tracking-[-0.025em]">Your Topics</h1>
         <Link href="/topics/new">
           <Button variant="primary" size="sm">
             New Topic
@@ -236,7 +235,7 @@ export default async function DashboardPage() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 animate-in-delay-1">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 animate-in-delay-1">
         {topicCards.map((card) => (
           <TopicCard key={card.id} card={card} />
         ))}
@@ -254,70 +253,60 @@ function TopicCard({ card }: { card: TopicCardData }) {
       : 0;
 
   return (
-    <div className="rounded-[12px] border border-white/[0.08] bg-gradient-to-b from-[#1A1816] to-[#161513] p-6 flex flex-col transition-all duration-200 cursor-pointer shadow-card hover:border-white/[0.14] hover:shadow-card-hover hover:-translate-y-0.5">
-      {/* Header row: title + status */}
-      <div className="flex items-start justify-between gap-2">
-        <Link
-          href={`/topics/${card.id}`}
-          className="min-w-0 flex-1"
-        >
-          <h2 className="font-medium text-[#EDEDEB] hover:text-amber-400 transition-colors truncate">
+    <Link href={card.nextAction.href} className="block group">
+      <div className="rounded-[14px] border border-white/[0.07] bg-[#111113] p-6 flex flex-col transition-all duration-150 hover:bg-[#151517] hover:border-white/[0.10]">
+        {/* Header row: title + status */}
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <h2 className="text-[17px] font-semibold text-[#eeeeef] tracking-[-0.02em] group-hover:text-amber-400 transition-colors">
             {card.title}
           </h2>
-        </Link>
-        <Badge variant={statusVariant(card.status)}>
-          {statusLabel(card.status)}
-        </Badge>
-      </div>
+          <Badge variant={statusVariant(card.status)}>
+            {statusLabel(card.status)}
+          </Badge>
+        </div>
 
-      {/* Current module */}
-      {card.currentModule && (
-        <p className="mt-2 text-xs text-[#8A8480]">
-          Current:{" "}
-          <span className="text-[#A8A29E]">
-            {card.currentModule.title || "Module"}
-          </span>
-        </p>
-      )}
+        {/* Goal */}
+        {card.goal && (
+          <p className="text-[14px] text-[#a8a8b0] leading-[1.5] line-clamp-2 mb-4">{card.goal}</p>
+        )}
 
-      {/* Goal */}
-      {card.goal && (
-        <p className="mt-2 text-sm text-[#A8A29E] line-clamp-2">{card.goal}</p>
-      )}
+        {/* Current module */}
+        {card.currentModule && (
+          <p className="text-[13px] text-[#6e6e78] mb-4">
+            Current module:{" "}
+            <span className="text-[#a8a8b0]">
+              {card.currentModule.title || "Module"}
+            </span>
+          </p>
+        )}
 
-      {/* Progress bar */}
-      <div className="mt-4">
-        <Progress
-          value={progressPercent}
-          label={
-            card.totalLessons > 0
-              ? `${card.completedLessons}/${card.totalLessons} lessons`
-              : undefined
-          }
-        />
-      </div>
+        {/* Progress bar */}
+        <div className="mt-auto pt-2">
+          <Progress
+            value={progressPercent}
+            label={
+              card.totalLessons > 0
+                ? `${card.completedLessons}/${card.totalLessons} lessons`
+                : undefined
+            }
+          />
+        </div>
 
-      {/* Footer: SRS badge + CTA */}
-      <div className="mt-4 flex items-center justify-between pt-2 border-t border-white/[0.08]">
-        <div>
-          {card.dueReviewCount > 0 && (
-            <Link href={`/topics/${card.id}/review`}>
-              <Badge variant="warning" className="cursor-pointer">
+        {/* Footer: SRS badge + CTA */}
+        <div className="mt-4 flex items-center justify-between pt-3 border-t border-white/[0.06]">
+          <div>
+            {card.dueReviewCount > 0 && (
+              <Badge variant="warning">
                 {card.dueReviewCount} review{card.dueReviewCount !== 1 ? "s" : ""} due
               </Badge>
-            </Link>
-          )}
+            )}
+          </div>
+          <span className="text-[13px] font-medium text-amber-400 group-hover:text-amber-300 transition-colors">
+            {card.nextAction.label} →
+          </span>
         </div>
-        <Link href={card.nextAction.href}>
-          <Button
-            variant={card.nextAction.type === "review" ? "secondary" : "primary"}
-            size="sm"
-          >
-            {card.nextAction.label}
-          </Button>
-        </Link>
       </div>
-    </div>
+    </Link>
   );
 }
 

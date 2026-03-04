@@ -43,12 +43,12 @@ export function LessonImage({ onRequestImage, altText = "Lesson illustration", c
 
   if (status === "prompt") {
     return (
-      <div className={`flex items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#161513]/50 p-6 ${className}`}>
+      <div className={`flex items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#111113]/50 p-6 ${className}`}>
         <Button
           variant="ghost"
           size="sm"
           onClick={handleGenerate}
-          className="gap-1.5 text-[#A8A29E] hover:text-[#EDEDEB]"
+          className="gap-1.5 text-[#a8a8b0] hover:text-[#eeeeef]"
         >
           <ImageIcon />
           <span className="text-xs">Generate illustration</span>
@@ -59,22 +59,22 @@ export function LessonImage({ onRequestImage, altText = "Lesson illustration", c
 
   if (status === "loading") {
     return (
-      <div className={`flex flex-col items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#161513]/50 p-8 ${className}`}>
+      <div className={`flex flex-col items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#111113]/50 p-8 ${className}`}>
         <div className="h-6 w-6 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-        <p className="mt-3 text-xs text-[#8A8480]">Generating illustration...</p>
+        <p className="mt-3 text-xs text-[#6e6e78]">Generating illustration...</p>
       </div>
     );
   }
 
   if (status === "error") {
     return (
-      <div className={`flex flex-col items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#161513]/50 p-6 ${className}`}>
+      <div className={`flex flex-col items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#111113]/50 p-6 ${className}`}>
         <p className="text-xs text-red-400">{errorMsg}</p>
         <Button
           variant="ghost"
           size="sm"
           onClick={handleGenerate}
-          className="mt-2 text-xs text-[#A8A29E] hover:text-[#EDEDEB]"
+          className="mt-2 text-xs text-[#a8a8b0] hover:text-[#eeeeef]"
         >
           Try again
         </Button>
@@ -93,7 +93,7 @@ export function LessonImage({ onRequestImage, altText = "Lesson illustration", c
         loading="lazy"
       />
       {altText && (
-        <p className="absolute bottom-0 inset-x-0 bg-[#0F0E0D]/80 backdrop-blur-sm px-3 py-2 text-xs text-[#8A8480]">{altText}</p>
+        <p className="absolute bottom-0 inset-x-0 bg-[#0a0a0c]/80 backdrop-blur-sm px-3 py-2 text-xs text-[#6e6e78]">{altText}</p>
       )}
     </div>
   );

@@ -111,9 +111,9 @@ export default async function TopicOverviewPage({
     <div className="mx-auto max-w-3xl">
       <div className="flex items-start justify-between animate-in">
         <div>
-          <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">{topic.title}</h1>
+          <h1 className="text-2xl font-bold text-[#eeeeef] tracking-[-0.025em]">{topic.title}</h1>
           {topic.goal && (
-            <p className="mt-2 text-[#A8A29E]">{topic.goal}</p>
+            <p className="mt-2 text-[#a8a8b0]">{topic.goal}</p>
           )}
         </div>
         <Link href="/dashboard">
@@ -124,19 +124,19 @@ export default async function TopicOverviewPage({
       {/* Progress bar and stats */}
       <div className="mt-6 grid grid-cols-3 gap-4 animate-in-delay-1">
         <Card className="p-4">
-          <p className="text-xs text-[#8A8480]">Overall Progress</p>
-          <p className="mt-1 text-lg font-medium text-[#EDEDEB]">{overallProgress}%</p>
+          <p className="text-xs text-[#6e6e78]">Overall Progress</p>
+          <p className="mt-1 text-lg font-medium text-[#eeeeef]">{overallProgress}%</p>
           <Progress value={overallProgress} className="mt-2" />
         </Card>
         <Card className="p-4">
-          <p className="text-xs text-[#8A8480]">Lessons Complete</p>
-          <p className="mt-1 text-lg font-medium text-[#EDEDEB]">
+          <p className="text-xs text-[#6e6e78]">Lessons Complete</p>
+          <p className="mt-1 text-lg font-medium text-[#eeeeef]">
             {completedLessons} / {totalLessons}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-xs text-[#8A8480]">Reviews Due</p>
-          <p className={`mt-1 text-lg font-medium ${(dueReviewCount || 0) > 0 ? "text-amber-400" : "text-[#EDEDEB]"}`}>
+          <p className="text-xs text-[#6e6e78]">Reviews Due</p>
+          <p className={`mt-1 text-lg font-medium ${(dueReviewCount || 0) > 0 ? "text-amber-400" : "text-[#eeeeef]"}`}>
             {dueReviewCount || 0}
           </p>
           {(dueReviewCount || 0) > 0 && (
@@ -174,11 +174,11 @@ export default async function TopicOverviewPage({
 
       {/* Module list */}
       <div className="mt-8 space-y-4 animate-in-delay-2">
-        <h2 className="text-lg font-medium text-[#EDEDEB]">Curriculum</h2>
+        <h2 className="text-lg font-medium text-[#eeeeef]">Curriculum</h2>
 
         {(!modules || modules.length === 0) ? (
           <Card>
-            <p className="text-center text-sm text-[#8A8480]">
+            <p className="text-center text-sm text-[#6e6e78]">
               No modules yet. Your curriculum is being generated.
             </p>
           </Card>
@@ -200,18 +200,18 @@ export default async function TopicOverviewPage({
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-[#8A8480]">
+                      <span className="text-xs text-[#6e6e78]">
                         Module {mod.sequence_order}
                       </span>
                       {mod.bloom_level && (
-                        <span className="text-xs text-[#57534E]">
+                        <span className="text-xs text-[#45454d]">
                           {bloomLabel(mod.bloom_level)}
                         </span>
                       )}
                     </div>
-                    <h3 className="mt-1 font-medium text-[#EDEDEB]">{mod.title}</h3>
+                    <h3 className="mt-1 font-medium text-[#eeeeef]">{mod.title}</h3>
                     {mod.description && (
-                      <p className="mt-1 text-sm text-[#A8A29E] line-clamp-2">
+                      <p className="mt-1 text-sm text-[#a8a8b0] line-clamp-2">
                         {mod.description}
                       </p>
                     )}
@@ -231,7 +231,7 @@ export default async function TopicOverviewPage({
                 )}
 
                 {mod.mastery_score !== null && (
-                  <p className="mt-2 text-xs text-[#8A8480]">
+                  <p className="mt-2 text-xs text-[#6e6e78]">
                     Mastery score: {Math.round(mod.mastery_score)}%
                   </p>
                 )}

@@ -65,18 +65,18 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0F0E0D] px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0c] px-4">
         <div className="w-full max-w-sm space-y-4 text-center">
-          <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">
+          <h1 className="text-[24px] font-semibold text-[#eeeeef] tracking-[-0.025em]">
             Check your email
           </h1>
-          <p className="text-sm text-[#A8A29E]">
-            We sent a confirmation link to <strong className="text-[#EDEDEB]">{email}</strong>.
+          <p className="text-[14px] text-[#a8a8b0]">
+            We sent a confirmation link to <strong className="text-[#eeeeef]">{email}</strong>.
             Click it to activate your account.
           </p>
           <Link
             href="/login"
-            className="inline-block text-sm text-amber-500 hover:text-amber-400 transition-colors"
+            className="inline-block text-[14px] text-amber-400 hover:text-amber-300 transition-colors"
           >
             Back to sign in
           </Link>
@@ -88,26 +88,19 @@ export default function SignupPage() {
   return (
     <div className="flex min-h-screen">
       {/* Left panel — desktop only */}
-      <div className="hidden lg:flex lg:w-[45%] flex-col justify-between bg-[#0C0B0A] p-12 relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(ellipse 80% 60% at 30% 80%, rgba(245,158,11,0.04), transparent 70%)",
-          }}
-        />
+      <div className="hidden lg:flex lg:w-[45%] flex-col justify-between bg-[#08080a] border-r border-white/[0.06] p-12 relative overflow-hidden">
         <div className="relative">
           <div className="flex items-center gap-2.5">
             <div className="flex h-8 w-8 items-center justify-center rounded-[7px] bg-gradient-to-b from-amber-400 to-amber-500 shadow-button-primary">
-              <span className="text-sm font-bold text-[#0F0E0D]">L</span>
+              <span className="text-sm font-bold text-[#0a0a0c]">L</span>
             </div>
-            <span className="text-[16px] font-semibold text-[#EDEDEB] tracking-[-0.01em]">LearnTrellis</span>
+            <span className="text-[16px] font-semibold text-[#eeeeef] tracking-[-0.02em]">LearnTrellis</span>
           </div>
         </div>
         <div className="relative space-y-6">
-          <h2 className="text-[28px] font-bold leading-[1.2] tracking-[-0.025em] text-[#EDEDEB]">
+          <h2 className="text-[28px] font-semibold leading-[1.15] tracking-[-0.025em] text-[#eeeeef]">
             Learn anything.<br />
-            <span className="text-[#A8A29E]">Master it completely.</span>
+            <span className="text-[#6e6e78]">Master it completely.</span>
           </h2>
           <div className="space-y-4">
             {[
@@ -116,28 +109,28 @@ export default function SignupPage() {
               { label: "Mastery gating", desc: "Prove it before advancing" },
             ].map((item) => (
               <div key={item.label} className="flex items-start gap-3">
-                <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+                <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
                 <div>
-                  <p className="text-[14px] font-medium text-[#EDEDEB]">{item.label}</p>
-                  <p className="text-[13px] text-[#8A8480]">{item.desc}</p>
+                  <p className="text-[14px] font-medium text-[#eeeeef]">{item.label}</p>
+                  <p className="text-[13px] text-[#6e6e78]">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <p className="relative text-[13px] text-[#57534E]">
+        <p className="relative text-[13px] text-[#45454d]">
           &copy; 2026 LearnTrellis
         </p>
       </div>
 
       {/* Right panel — form */}
-      <div className="flex flex-1 items-center justify-center p-6 lg:p-12 bg-[#0F0E0D]">
+      <div className="flex flex-1 items-center justify-center p-6 lg:p-12 bg-[#0a0a0c]">
         <div className="w-full max-w-[360px] space-y-8">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">
+            <h1 className="text-[24px] font-semibold text-[#eeeeef] tracking-[-0.025em]">
               Create your account
             </h1>
-            <p className="mt-2 text-sm text-[#A8A29E]">
+            <p className="mt-2 text-[14px] text-[#a8a8b0]">
               Start learning with AI-powered tutoring
             </p>
           </div>
@@ -171,7 +164,9 @@ export default function SignupPage() {
             />
 
             {error && (
-              <p className="text-sm text-red-400">{error}</p>
+              <div className="rounded-[8px] border border-red-500/20 bg-red-500/10 px-4 py-2.5 text-[13px] text-red-400">
+                {error}
+              </div>
             )}
 
             <Button type="submit" variant="primary" className="w-full" disabled={loading}>
@@ -181,10 +176,10 @@ export default function SignupPage() {
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/[0.08]" />
+              <div className="w-full border-t border-white/[0.06]" />
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="bg-[#0F0E0D] px-2 text-[#8A8480]">or</span>
+              <span className="bg-[#0a0a0c] px-2 text-[#6e6e78]">or</span>
             </div>
           </div>
 
@@ -214,9 +209,9 @@ export default function SignupPage() {
             Continue with Google
           </Button>
 
-          <p className="text-center text-sm text-[#8A8480]">
+          <p className="text-center text-[14px] text-[#6e6e78]">
             Already have an account?{" "}
-            <Link href="/login" className="text-amber-500 hover:text-amber-400 transition-colors">
+            <Link href="/login" className="text-amber-400 hover:text-amber-300 transition-colors">
               Sign in
             </Link>
           </p>

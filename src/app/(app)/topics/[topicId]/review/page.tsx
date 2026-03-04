@@ -95,7 +95,7 @@ export default function ReviewPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
               </svg>
             </div>
-            <p className="text-sm text-[#A8A29E]">{error}</p>
+            <p className="text-sm text-[#a8a8b0]">{error}</p>
             <Button variant="secondary" onClick={() => router.push(`/topics/${topicId}`)}>
               Back to Topic
             </Button>
@@ -115,10 +115,10 @@ export default function ReviewPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
             </div>
-            <h2 className="text-xl font-semibold text-[#EDEDEB]">
+            <h2 className="text-xl font-semibold text-[#eeeeef]">
               {totalReviewed > 0 ? "Review Complete!" : "No Reviews Due"}
             </h2>
-            <p className="mt-2 text-[#A8A29E]">
+            <p className="mt-2 text-[#a8a8b0]">
               {totalReviewed > 0
                 ? `You reviewed ${totalReviewed} concept${totalReviewed === 1 ? "" : "s"}.`
                 : "All concepts are up to date. Come back later."}
@@ -152,8 +152,8 @@ export default function ReviewPage() {
   return (
     <div className="mx-auto max-w-2xl py-12">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-[#EDEDEB]">Spaced Review</h1>
-        <span className="text-sm text-[#8A8480]">
+        <h1 className="text-xl font-semibold text-[#eeeeef]">Spaced Review</h1>
+        <span className="text-sm text-[#6e6e78]">
           {currentIdx + 1} of {cards.length}
         </span>
       </div>
@@ -166,7 +166,7 @@ export default function ReviewPage() {
           {phase === "reviewing" && (
             <>
               <div className="min-h-[120px] flex flex-col items-center justify-center text-center py-6">
-                <p className="text-lg text-[#EDEDEB]">
+                <p className="text-lg text-[#eeeeef]">
                   {reviewPrompt || conceptText}
                 </p>
               </div>
@@ -183,18 +183,18 @@ export default function ReviewPage() {
           {phase === "show_answer" && (
             <>
               <div className="min-h-[120px] flex flex-col items-center justify-center text-center py-6">
-                <p className="text-sm text-[#8A8480] mb-2">Question:</p>
-                <p className="text-[#EDEDEB] mb-4">
+                <p className="text-sm text-[#6e6e78] mb-2">Question:</p>
+                <p className="text-[#eeeeef] mb-4">
                   {reviewPrompt || "Recall this concept:"}
                 </p>
                 <div className="border-t border-white/[0.08] pt-4 w-full">
-                  <p className="text-sm text-[#8A8480] mb-2">Answer:</p>
-                  <p className="text-lg text-[#EDEDEB]">{conceptText}</p>
+                  <p className="text-sm text-[#6e6e78] mb-2">Answer:</p>
+                  <p className="text-lg text-[#eeeeef]">{conceptText}</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-center text-sm text-[#A8A29E] mb-3">
+                <p className="text-center text-sm text-[#a8a8b0] mb-3">
                   How well did you remember?
                 </p>
                 <div className="flex gap-2">
@@ -213,7 +213,7 @@ export default function ReviewPage() {
           )}
 
           {/* Card metadata */}
-          <div className="border-t border-white/[0.08] pt-3 flex items-center justify-between text-xs text-[#57534E]">
+          <div className="border-t border-white/[0.08] pt-3 flex items-center justify-between text-xs text-[#45454d]">
             <span>Interval: {currentCard?.interval_days}d</span>
             <span>EF: {currentCard?.ease_factor.toFixed(2)}</span>
             <span>Reps: {currentCard?.repetitions}</span>
