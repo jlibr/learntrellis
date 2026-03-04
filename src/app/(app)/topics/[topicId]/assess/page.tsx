@@ -219,6 +219,7 @@ export default function AssessPage() {
     // Move to next dimension
     setCurrentQuestion(null);
     setCurrentDimIndex(prev => prev + 1);
+    setPhase("loading");
   }
 
   // Finalize when all dimensions are assessed

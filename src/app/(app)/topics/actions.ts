@@ -253,7 +253,8 @@ Rules:
 - ${difficulty === "easy" ? "Test basic recall and recognition" : difficulty === "medium" ? "Test understanding and application" : "Test analysis and evaluation"}
 - Do NOT repeat or closely overlap with these previous questions: ${previousQuestions.join("; ") || "none yet"}
 - MC questions should have exactly 4 content options plus "I don't know"
-- Alternate between MC and open_ended based on difficulty: easy=MC, medium=mix, hard=open_ended preferred`,
+- Alternate between MC and open_ended based on difficulty: easy=MC, medium=mix, hard=open_ended preferred
+- Use plain text in options and questions. Do NOT use HTML entities (write <ul> not &lt;ul&gt;)`,
       },
       {
         role: "user",
