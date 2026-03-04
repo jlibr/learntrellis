@@ -88,9 +88,46 @@ export default function SignupPage() {
   return (
     <div className="flex min-h-screen">
       {/* Left panel — desktop only */}
-      <div className="hidden lg:flex lg:w-[45%] flex-col items-center justify-center bg-gradient-to-br from-[#161513] to-[#0F0E0D] p-16">
-        <span className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.01em]">LearnTrellis</span>
-        <span className="mt-3 text-lg text-[#A8A29E]">Learn anything. Master it completely.</span>
+      <div className="hidden lg:flex lg:w-[45%] flex-col justify-between bg-[#0C0B0A] p-12 relative overflow-hidden">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(ellipse 80% 60% at 30% 80%, rgba(245,158,11,0.04), transparent 70%)",
+          }}
+        />
+        <div className="relative">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-[7px] bg-gradient-to-b from-amber-400 to-amber-500 shadow-button-primary">
+              <span className="text-sm font-bold text-[#0F0E0D]">L</span>
+            </div>
+            <span className="text-[16px] font-semibold text-[#EDEDEB] tracking-[-0.01em]">LearnTrellis</span>
+          </div>
+        </div>
+        <div className="relative space-y-6">
+          <h2 className="text-[28px] font-bold leading-[1.2] tracking-[-0.025em] text-[#EDEDEB]">
+            Learn anything.<br />
+            <span className="text-[#A8A29E]">Master it completely.</span>
+          </h2>
+          <div className="space-y-4">
+            {[
+              { label: "Adaptive baseline", desc: "We meet you where you are" },
+              { label: "Spaced repetition", desc: "Retain what you learn" },
+              { label: "Mastery gating", desc: "Prove it before advancing" },
+            ].map((item) => (
+              <div key={item.label} className="flex items-start gap-3">
+                <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+                <div>
+                  <p className="text-[14px] font-medium text-[#EDEDEB]">{item.label}</p>
+                  <p className="text-[13px] text-[#8A8480]">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p className="relative text-[13px] text-[#57534E]">
+          &copy; 2026 LearnTrellis
+        </p>
       </div>
 
       {/* Right panel — form */}

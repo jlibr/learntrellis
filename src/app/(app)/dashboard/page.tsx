@@ -227,7 +227,7 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 animate-in">
         <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">Your Topics</h1>
         <Link href="/topics/new">
           <Button variant="primary" size="sm">
@@ -236,7 +236,7 @@ export default async function DashboardPage() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 animate-in-delay-1">
         {topicCards.map((card) => (
           <TopicCard key={card.id} card={card} />
         ))}
@@ -254,7 +254,7 @@ function TopicCard({ card }: { card: TopicCardData }) {
       : 0;
 
   return (
-    <div className="rounded-[12px] border border-white/[0.08] bg-[#161513] p-6 flex flex-col transition-all duration-150 cursor-pointer hover:border-white/[0.16] hover:bg-[#1E1C19] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] hover:-translate-y-0.5">
+    <div className="rounded-[12px] border border-white/[0.08] bg-gradient-to-b from-[#1A1816] to-[#161513] p-6 flex flex-col transition-all duration-200 cursor-pointer shadow-card hover:border-white/[0.14] hover:shadow-card-hover hover:-translate-y-0.5">
       {/* Header row: title + status */}
       <div className="flex items-start justify-between gap-2">
         <Link

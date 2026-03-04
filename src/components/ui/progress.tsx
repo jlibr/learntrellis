@@ -17,9 +17,9 @@ export function Progress({ value, className, label }: ProgressProps) {
           <span className="text-[13px] text-[#8A8480]">{Math.round(clamped)}%</span>
         </div>
       )}
-      <div className="h-1.5 w-full rounded-full bg-white/[0.08] overflow-hidden">
+      <div className="h-1.5 w-full rounded-full bg-white/[0.08] overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">
         <div
-          className="h-full rounded-full bg-amber-500 transition-[width] duration-[400ms] ease-out"
+          className="h-full rounded-full bg-gradient-to-r from-amber-500 to-amber-400 transition-[width] duration-[400ms] ease-out shadow-[0_0_8px_rgba(245,158,11,0.3)]"
           style={{ width: `${clamped}%` }}
           role="progressbar"
           aria-valuenow={clamped}

@@ -127,11 +127,16 @@ export default function MasteryTestPage() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-2xl py-12">
+      <div className="mx-auto max-w-2xl py-12 animate-in">
         <Card>
-          <div className="text-center">
-            <p className="text-red-400">{error}</p>
-            <Button className="mt-4" onClick={() => router.push(`/topics/${topicId}`)}>
+          <div className="text-center py-4 space-y-4">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10 border border-red-500/20">
+              <svg className="h-5 w-5 text-red-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              </svg>
+            </div>
+            <p className="text-sm text-[#A8A29E]">{error}</p>
+            <Button variant="secondary" onClick={() => router.push(`/topics/${topicId}`)}>
               Back to Topic
             </Button>
           </div>
@@ -157,8 +162,8 @@ export default function MasteryTestPage() {
 
   if (phase === "results") {
     return (
-      <div className="mx-auto max-w-2xl py-12">
-        <h1 className="text-2xl font-semibold text-[#EDEDEB] mb-6">Mastery Test Results</h1>
+      <div className="mx-auto max-w-2xl py-12 animate-in">
+        <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em] mb-6">Mastery Test Results</h1>
 
         <Card>
           <div className="space-y-6">
@@ -370,5 +375,15 @@ export default function MasteryTestPage() {
     );
   }
 
-  return null;
+  // Fallback — shouldn't reach here, but show loading rather than blank screen
+  return (
+    <div className="mx-auto max-w-2xl py-12">
+      <Card>
+        <div className="flex flex-col items-center justify-center py-12">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
+          <p className="mt-4 text-[#A8A29E]">Loading...</p>
+        </div>
+      </Card>
+    </div>
+  );
 }

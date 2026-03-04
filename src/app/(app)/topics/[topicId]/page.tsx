@@ -109,9 +109,9 @@ export default async function TopicOverviewPage({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between animate-in">
         <div>
-          <h1 className="text-2xl font-semibold text-[#EDEDEB]">{topic.title}</h1>
+          <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">{topic.title}</h1>
           {topic.goal && (
             <p className="mt-2 text-[#A8A29E]">{topic.goal}</p>
           )}
@@ -122,7 +122,7 @@ export default async function TopicOverviewPage({
       </div>
 
       {/* Progress bar and stats */}
-      <div className="mt-6 grid grid-cols-3 gap-4">
+      <div className="mt-6 grid grid-cols-3 gap-4 animate-in-delay-1">
         <Card className="p-4">
           <p className="text-xs text-[#8A8480]">Overall Progress</p>
           <p className="mt-1 text-lg font-medium text-[#EDEDEB]">{overallProgress}%</p>
@@ -173,7 +173,7 @@ export default async function TopicOverviewPage({
       </div>
 
       {/* Module list */}
-      <div className="mt-8 space-y-4">
+      <div className="mt-8 space-y-4 animate-in-delay-2">
         <h2 className="text-lg font-medium text-[#EDEDEB]">Curriculum</h2>
 
         {(!modules || modules.length === 0) ? (

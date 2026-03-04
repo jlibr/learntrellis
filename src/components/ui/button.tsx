@@ -11,9 +11,9 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-amber-500 text-[#0F0E0D] hover:bg-amber-400 active:bg-amber-600 active:scale-[0.99] disabled:opacity-40 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F0E0D]",
+    "bg-gradient-to-b from-amber-400 to-amber-500 text-[#0F0E0D] shadow-button-primary hover:from-amber-300 hover:to-amber-400 hover:shadow-button-primary-hover active:from-amber-500 active:to-amber-600 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F0E0D]",
   secondary:
-    "text-[#EDEDEB] border border-white/[0.15] hover:bg-white/[0.06] hover:border-white/20 active:bg-white/[0.10] disabled:opacity-40 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F0E0D]",
+    "text-[#EDEDEB] border border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.07] hover:border-white/[0.20] active:bg-white/[0.10] disabled:opacity-40 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F0E0D]",
   ghost:
     "text-[#A8A29E] hover:bg-white/[0.06] hover:text-[#EDEDEB] active:bg-white/[0.10] disabled:opacity-40 disabled:pointer-events-none",
   danger:
@@ -21,7 +21,7 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-sm h-8",
+  sm: "px-3.5 py-1.5 text-sm h-8",
   md: "px-4 py-2 text-sm h-9",
   lg: "px-6 py-3 text-base h-11",
 };

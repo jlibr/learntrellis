@@ -44,7 +44,7 @@ export default function NewTopicPage() {
   }
 
   return (
-    <div className="mx-auto max-w-[640px] py-12">
+    <div className="mx-auto max-w-[640px] py-12 animate-in">
       <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">New Learning Topic</h1>
       <p className="mt-2 text-sm text-[#A8A29E]">
         Tell us what you want to learn and we will build a personalized curriculum.
@@ -118,7 +118,7 @@ export default function NewTopicPage() {
           >
             Cancel
           </Button>
-          <Button type="submit" disabled={loading || !title.trim()}>
+          <Button type="submit" variant="primary" disabled={loading || !title.trim()}>
             {loading ? "Creating..." : "Start Learning"}
           </Button>
         </div>

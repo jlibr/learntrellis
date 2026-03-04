@@ -26,18 +26,25 @@ export function AppNav({ user }: { user: User }) {
   return (
     <>
       {/* Desktop sidebar */}
-      <nav className="hidden w-56 shrink-0 border-r border-white/[0.08] bg-[#0F0E0D] lg:block" aria-label="Main navigation">
+      <nav className="hidden w-[240px] shrink-0 bg-[#0C0B0A] shadow-nav lg:block" aria-label="Main navigation">
         <div className="flex h-full flex-col">
-          <div className="px-4 py-6">
+          {/* Logo */}
+          <div className="px-5 py-7">
             <Link
               href="/dashboard"
-              className="text-[15px] font-bold text-[#EDEDEB] tracking-[-0.01em]"
+              className="group flex items-center gap-2.5"
             >
-              LearnTrellis
+              <div className="flex h-7 w-7 items-center justify-center rounded-[6px] bg-gradient-to-b from-amber-400 to-amber-500 shadow-button-primary">
+                <span className="text-sm font-bold text-[#0F0E0D]">L</span>
+              </div>
+              <span className="text-[15px] font-semibold text-[#EDEDEB] tracking-[-0.01em] group-hover:text-white transition-colors">
+                LearnTrellis
+              </span>
             </Link>
           </div>
 
-          <div className="flex-1 space-y-1 px-3">
+          {/* Nav items */}
+          <div className="flex-1 space-y-0.5 px-3">
             {navItems.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
@@ -45,29 +52,39 @@ export function AppNav({ user }: { user: User }) {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-3 rounded-[8px] px-3 py-2 text-sm font-medium transition-colors duration-100",
+                    "group flex items-center gap-3 rounded-[8px] px-3 py-2.5 text-[13px] font-medium transition-all duration-100",
                     isActive
-                      ? "bg-amber-500/10 text-amber-400 border-l-2 border-amber-500 -ml-[2px] pl-[14px]"
-                      : "text-[#8A8480] hover:bg-white/[0.06] hover:text-[#A8A29E]"
+                      ? "bg-white/[0.08] text-[#EDEDEB] shadow-[inset_0_1px_0_rgba(255,251,235,0.04)]"
+                      : "text-[#8A8480] hover:bg-white/[0.04] hover:text-[#A8A29E]"
                   )}
                 >
-                  <item.icon className="h-4 w-4" />
+                  <item.icon className={cn(
+                    "h-[18px] w-[18px] transition-colors",
+                    isActive ? "text-amber-400" : "text-[#57534E] group-hover:text-[#8A8480]"
+                  )} />
                   {item.label}
                 </Link>
               );
             })}
           </div>
 
-          <div className="border-t border-white/[0.08] px-3 py-4">
-            <div className="flex items-center justify-between px-3">
-              <span className="text-[13px] text-[#8A8480] truncate">
-                {user.email}
-              </span>
+          {/* User section */}
+          <div className="border-t border-white/[0.06] px-3 py-4">
+            <div className="flex items-center gap-3 rounded-[8px] px-3 py-2">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#262320] text-xs font-medium text-[#A8A29E]">
+                {(user.email?.[0] || "?").toUpperCase()}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[13px] text-[#A8A29E]">
+                  {user.email}
+                </p>
+              </div>
               <button
                 onClick={handleLogout}
-                className="text-xs text-[#57534E] hover:text-[#A8A29E] transition-colors"
+                className="shrink-0 rounded-[6px] p-1.5 text-[#57534E] hover:bg-white/[0.06] hover:text-[#A8A29E] transition-all"
+                title="Sign out"
               >
-                Sign out
+                <LogOutIcon className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -75,7 +92,7 @@ export function AppNav({ user }: { user: User }) {
       </nav>
 
       {/* Mobile bottom tab bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-white/[0.08] bg-[#0F0E0D]/95 backdrop-blur-sm px-2 pb-[env(safe-area-inset-bottom)] lg:hidden" aria-label="Mobile navigation">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-white/[0.08] bg-[#0C0B0A]/95 backdrop-blur-md px-2 pb-[env(safe-area-inset-bottom)] lg:hidden" aria-label="Mobile navigation">
         {navItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
           return (

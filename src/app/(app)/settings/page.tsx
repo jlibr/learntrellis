@@ -15,13 +15,13 @@ export default async function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-xl">
-      <h1 className="text-2xl font-semibold text-[#EDEDEB]">Settings</h1>
+      <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em] animate-in">Settings</h1>
 
-      <div className="mt-8 space-y-8">
+      <div className="mt-8 space-y-8 animate-in-delay-1">
         {/* Profile Section */}
         <section>
           <h2 className="text-lg font-medium text-[#EDEDEB]">Profile</h2>
-          <div className="mt-4 rounded-[12px] border border-white/[0.08] bg-[#161513] p-6">
+          <div className="mt-4 rounded-[12px] border border-white/[0.08] bg-gradient-to-b from-[#1A1816] to-[#161513] p-6 shadow-card">
             <dl className="space-y-4">
               <div>
                 <dt className="text-sm text-[#8A8480]">Email</dt>
@@ -61,7 +61,7 @@ export default async function SettingsPage() {
         {/* Subscription Section */}
         <section>
           <h2 className="text-lg font-medium text-[#EDEDEB]">Subscription</h2>
-          <div className="mt-4 rounded-[12px] border border-white/[0.08] bg-[#161513] p-6">
+          <div className="mt-4 rounded-[12px] border border-white/[0.08] bg-gradient-to-b from-[#1A1816] to-[#161513] p-6 shadow-card">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-[#A8A29E]">
