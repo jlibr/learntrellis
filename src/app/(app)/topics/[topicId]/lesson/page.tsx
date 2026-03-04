@@ -208,8 +208,8 @@ export default function LessonPage() {
         <Card>
           <div className="flex flex-col items-center justify-center py-12">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-            <p className="mt-4 text-zinc-300">Preparing your lesson...</p>
-            <p className="mt-1 text-sm text-zinc-500">This may take a moment</p>
+            <p className="mt-4 text-[#EDEDEB]">Preparing your lesson...</p>
+            <p className="mt-1 text-sm text-[#8A8480]">This may take a moment</p>
           </div>
         </Card>
       </div>
@@ -222,8 +222,8 @@ export default function LessonPage() {
         <Card>
           <div className="text-center py-8">
             <div className="text-4xl mb-4">&#10003;</div>
-            <h2 className="text-xl font-semibold text-zinc-100">Lesson Complete</h2>
-            <p className="mt-2 text-zinc-400">Loading next step...</p>
+            <h2 className="text-xl font-semibold text-[#EDEDEB]">Lesson Complete</h2>
+            <p className="mt-2 text-[#A8A29E]">Loading next step...</p>
           </div>
         </Card>
       </div>
@@ -235,8 +235,8 @@ export default function LessonPage() {
       <div className="mx-auto max-w-3xl py-12">
         <Card>
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-zinc-100">How did that feel?</h2>
-            <p className="text-sm text-zinc-400">
+            <h2 className="text-xl font-semibold text-[#EDEDEB]">How did that feel?</h2>
+            <p className="text-sm text-[#A8A29E]">
               Your feedback helps us calibrate future lessons.
             </p>
 
@@ -245,17 +245,17 @@ export default function LessonPage() {
                 <button
                   key={option}
                   onClick={() => setPulse(option)}
-                  className={`rounded-lg border p-4 text-center transition-colors ${
+                  className={`rounded-[8px] border p-4 text-center transition-all duration-150 min-h-[48px] ${
                     pulse === option
                       ? "border-amber-500 bg-amber-500/10"
-                      : "border-zinc-700 hover:border-zinc-600"
+                      : "border-white/[0.12] hover:border-white/[0.16]"
                   }`}
                 >
                   <span className="text-2xl">
                     {option === "easy" ? "\u{1F60A}" : option === "right" ? "\u{1F44D}" : "\u{1F4AA}"}
                   </span>
                   <p className={`mt-2 text-sm font-medium ${
-                    pulse === option ? "text-amber-400" : "text-zinc-300"
+                    pulse === option ? "text-amber-400" : "text-[#EDEDEB]"
                   }`}>
                     {option === "easy" ? "Too Easy" : option === "right" ? "Just Right" : "Challenging"}
                   </p>
@@ -265,8 +265,8 @@ export default function LessonPage() {
 
             {/* Practice summary */}
             {Object.keys(grades).length > 0 && (
-              <div className="border-t border-zinc-800 pt-4">
-                <p className="text-sm text-zinc-400 mb-2">Practice Results:</p>
+              <div className="border-t border-white/[0.08] pt-4">
+                <p className="text-sm text-[#A8A29E] mb-2">Practice Results:</p>
                 <div className="space-y-1">
                   {Object.entries(grades).map(([idx, result]) => (
                     <div key={idx} className="flex items-center gap-2 text-sm">
@@ -277,7 +277,7 @@ export default function LessonPage() {
                       }>
                         {result.grade === "correct" || result.grade === "excellent" ? "+" : "-"}
                       </span>
-                      <span className="text-zinc-400">Q{Number(idx) + 1}: {result.grade}</span>
+                      <span className="text-[#A8A29E]">Q{Number(idx) + 1}: {result.grade}</span>
                     </div>
                   ))}
                 </div>
@@ -298,24 +298,24 @@ export default function LessonPage() {
   // Reading phase — full-width lesson content
   if (phase === "reading" && content) {
     return (
-      <div className="mx-auto max-w-3xl py-8">
-        {/* Lesson header */}
-        <div className="mb-8">
-          <Button
-            variant="ghost"
-            size="sm"
+      <div className="mx-auto max-w-[720px] px-6 py-8">
+        {/* Sticky lesson header */}
+        <div className="sticky top-0 z-10 h-14 flex items-center justify-between px-6 -mx-6 bg-[#0F0E0D]/90 backdrop-blur-[8px] border-b border-white/[0.06]">
+          <button
             onClick={() => router.push(`/topics/${topicId}`)}
+            className="text-sm text-[#A8A29E] hover:text-[#EDEDEB] transition-colors"
           >
             &larr; Back to Topic
-          </Button>
+          </button>
+          <span className="text-sm text-[#8A8480]">Lesson</span>
         </div>
 
         {/* Objective */}
-        <section className="mb-8">
+        <section className="mt-8 mb-8">
           <h2 className="text-sm font-medium text-amber-500 uppercase tracking-wide">
             Objective
           </h2>
-          <p className="mt-2 text-lg text-zinc-200">{content.objective}</p>
+          <p className="mt-2 text-lg text-[#EDEDEB]">{content.objective}</p>
         </section>
 
         {/* Why it matters */}
@@ -323,7 +323,7 @@ export default function LessonPage() {
           <h2 className="text-sm font-medium text-amber-500 uppercase tracking-wide">
             Why This Matters
           </h2>
-          <p className="mt-2 text-zinc-300">{content.whyItMatters}</p>
+          <p className="mt-2 text-[#EDEDEB]">{content.whyItMatters}</p>
         </section>
 
         {/* Core material */}
@@ -337,7 +337,7 @@ export default function LessonPage() {
             />
           )}
           <div
-            className="prose prose-invert prose-zinc max-w-none prose-headings:text-zinc-200 prose-p:text-zinc-300 prose-strong:text-zinc-200 prose-code:text-amber-400 prose-code:bg-zinc-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-zinc-800"
+            className="lesson-prose"
             dangerouslySetInnerHTML={{ __html: markdownToHtml(content.material) }}
           />
         </section>
@@ -375,7 +375,7 @@ export default function LessonPage() {
           )}
           <ul className="mt-3 space-y-2">
             {content.keyTakeaways.map((takeaway, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-zinc-300">
+              <li key={idx} className="flex items-start gap-2 text-[#EDEDEB]">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
                 {takeaway}
               </li>
@@ -391,19 +391,19 @@ export default function LessonPage() {
           <Card className="mt-3">
             <div className="space-y-4">
               <div>
-                <p className="text-xs font-medium text-zinc-500 uppercase">Problem</p>
-                <p className="mt-1 text-zinc-200">{content.workedExample.problem}</p>
+                <p className="text-xs font-medium text-[#8A8480] uppercase">Problem</p>
+                <p className="mt-1 text-[#EDEDEB]">{content.workedExample.problem}</p>
               </div>
               <div>
-                <p className="text-xs font-medium text-zinc-500 uppercase">Solution</p>
+                <p className="text-xs font-medium text-[#8A8480] uppercase">Solution</p>
                 <div
-                  className="mt-1 text-zinc-300"
+                  className="mt-1 text-[#EDEDEB]"
                   dangerouslySetInnerHTML={{ __html: markdownToHtml(content.workedExample.solution) }}
                 />
               </div>
               <div>
-                <p className="text-xs font-medium text-zinc-500 uppercase">Why This Works</p>
-                <p className="mt-1 text-zinc-400">{content.workedExample.explanation}</p>
+                <p className="text-xs font-medium text-[#8A8480] uppercase">Why This Works</p>
+                <p className="mt-1 text-[#A8A29E]">{content.workedExample.explanation}</p>
               </div>
             </div>
           </Card>
@@ -426,8 +426,8 @@ export default function LessonPage() {
     return (
       <div className="mx-auto max-w-2xl py-12">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-medium text-zinc-200">Practice</h2>
-          <span className="text-sm text-zinc-500">
+          <h2 className="text-lg font-medium text-[#EDEDEB]">Practice</h2>
+          <span className="text-sm text-[#8A8480]">
             {currentQuestionIdx + 1} of {content.practiceQuestions.length}
           </span>
         </div>
@@ -452,7 +452,7 @@ export default function LessonPage() {
               />
             )}
 
-            <p className="text-zinc-200 text-lg">{currentQuestion.question}</p>
+            <p className="text-[#EDEDEB] text-lg">{currentQuestion.question}</p>
 
             {/* MC options */}
             {currentQuestion.type === "mc" && currentQuestion.options && (
@@ -465,16 +465,16 @@ export default function LessonPage() {
                     key={idx}
                     onClick={() => !gradeResult && setSelectedAnswer(option)}
                     disabled={!!gradeResult}
-                    className={`w-full rounded-md border px-4 py-3 text-left text-sm transition-colors ${
+                    className={`w-full rounded-[8px] border px-4 py-3.5 text-left text-[15px] transition-all duration-150 min-h-[48px] ${
                       gradeResult
                         ? isCorrectOption
                           ? "border-green-500 bg-green-500/10 text-green-300"
                           : selectedAnswer === option
                           ? "border-red-500 bg-red-500/10 text-red-300"
-                          : "border-zinc-800 text-zinc-500"
+                          : "border-white/[0.06] text-[#57534E]"
                         : selectedAnswer === option
-                        ? "border-amber-500 bg-amber-500/10 text-zinc-100"
-                        : "border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-zinc-600"
+                        ? "border-amber-500 bg-amber-500/10 text-[#EDEDEB]"
+                        : "border-white/[0.10] bg-[#161513] text-[#EDEDEB] hover:border-white/[0.18]"
                     }`}
                   >
                     {option}
@@ -511,12 +511,12 @@ export default function LessonPage() {
 
             {/* Grade result */}
             {gradeResult && (
-              <div className={`rounded-md border p-4 ${
+              <div className={`rounded-[8px] border p-4 ${
                 gradeResult.grade === "correct" || gradeResult.grade === "excellent"
-                  ? "border-green-500/20 bg-green-500/5"
+                  ? "border-green-500/20 bg-green-500/[0.05]"
                   : gradeResult.grade === "adequate"
-                  ? "border-amber-500/20 bg-amber-500/5"
-                  : "border-red-500/20 bg-red-500/5"
+                  ? "border-amber-500/20 bg-amber-500/[0.05]"
+                  : "border-red-500/20 bg-red-500/[0.05]"
               }`}>
                 <p className={`text-sm font-medium ${
                   gradeResult.grade === "correct" || gradeResult.grade === "excellent"
@@ -527,12 +527,12 @@ export default function LessonPage() {
                 }`}>
                   {gradeResult.grade.charAt(0).toUpperCase() + gradeResult.grade.slice(1)}
                 </p>
-                <p className="mt-1 text-sm text-zinc-300">{gradeResult.feedback}</p>
+                <p className="mt-1 text-sm text-[#EDEDEB]">{gradeResult.feedback}</p>
 
                 {showExplanation && currentQuestion.explanation && (
-                  <div className="mt-3 border-t border-zinc-700 pt-3">
-                    <p className="text-xs text-zinc-500 uppercase font-medium">Explanation</p>
-                    <p className="mt-1 text-sm text-zinc-400">{currentQuestion.explanation}</p>
+                  <div className="mt-3 border-t border-white/[0.08] pt-3">
+                    <p className="text-xs text-[#8A8480] uppercase font-medium">Explanation</p>
+                    <p className="mt-1 text-sm text-[#A8A29E]">{currentQuestion.explanation}</p>
                   </div>
                 )}
               </div>
@@ -587,11 +587,14 @@ function markdownToHtml(md: string): string {
 
   const escHtml = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-  let html = md
-    // Code blocks — escape HTML inside
-    .replace(/```(\w*)\n([\s\S]*?)```/g, (_m, lang, code) => `<pre><code class="language-${lang}">${escHtml(code)}</code></pre>`)
-    // Inline code — escape HTML inside
-    .replace(/`([^`]+)`/g, (_m, code) => `<code>${escHtml(code)}</code>`)
+  // Escape all HTML first to prevent XSS from AI-generated content
+  let escaped = escHtml(md);
+
+  let html = escaped
+    // Code blocks (already escaped, wrap in pre/code)
+    .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
+    // Inline code
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
     // Headers
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')
     .replace(/^## (.+)$/gm, '<h2>$1</h2>')

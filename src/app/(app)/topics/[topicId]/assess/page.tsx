@@ -268,22 +268,22 @@ export default function AssessPage() {
         <Card>
           <div className="text-center py-8">
             <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-            <p className="text-zinc-300 font-medium">
+            <p className="text-[#EDEDEB] font-medium">
               {curriculumGenerating
                 ? "Building your personalized curriculum..."
                 : "Analyzing your responses..."}
             </p>
-            <p className="mt-2 text-sm text-zinc-500">This may take a moment</p>
+            <p className="mt-2 text-sm text-[#8A8480]">This may take a moment</p>
           </div>
         </Card>
 
         {dimensionResults.length > 0 && (
           <Card className="mt-6">
-            <h3 className="text-sm font-medium text-zinc-300 mb-3">Assessment Summary</h3>
+            <h3 className="text-sm font-medium text-[#EDEDEB] mb-3">Assessment Summary</h3>
             <div className="space-y-2">
               {dimensionResults.map((r) => (
                 <div key={r.name} className="flex items-center justify-between text-sm">
-                  <span className="text-zinc-400">{r.name}</span>
+                  <span className="text-[#A8A29E]">{r.name}</span>
                   <span
                     className={
                       r.signal === "strong"
@@ -307,8 +307,8 @@ export default function AssessPage() {
   if (phase === "loading" || phase === "evaluating") {
     return (
       <div className="mx-auto max-w-2xl py-12">
-        <h1 className="text-2xl font-semibold text-zinc-100">Baseline Assessment</h1>
-        <p className="mt-2 text-sm text-zinc-400">
+        <h1 className="text-2xl font-semibold text-[#EDEDEB]">Baseline Assessment</h1>
+        <p className="mt-2 text-sm text-[#A8A29E]">
           {phase === "loading" ? "Preparing your next question..." : "Evaluating your answer..."}
         </p>
         <div className="mt-6">
@@ -327,7 +327,7 @@ export default function AssessPage() {
   if (phase === "followup") {
     return (
       <div className="mx-auto max-w-2xl py-12">
-        <h1 className="text-2xl font-semibold text-zinc-100">Baseline Assessment</h1>
+        <h1 className="text-2xl font-semibold text-[#EDEDEB]">Baseline Assessment</h1>
         <div className="mt-4">
           <Progress value={progressPercent} label="Assessment progress" />
         </div>
@@ -335,10 +335,10 @@ export default function AssessPage() {
         <Card className="mt-6">
           <div className="space-y-4">
             <p className="text-sm text-amber-400">Follow-up question</p>
-            <p className="text-zinc-200">
+            <p className="text-[#EDEDEB]">
               Can you explain your reasoning? Why did you choose that answer for:
             </p>
-            <p className="text-sm text-zinc-400 italic">{currentQuestion?.question}</p>
+            <p className="text-sm text-[#A8A29E] italic">{currentQuestion?.question}</p>
 
             <Textarea
               placeholder="Explain your understanding in your own words..."
@@ -367,8 +367,17 @@ export default function AssessPage() {
   // Main question display
   return (
     <div className="mx-auto max-w-2xl py-12">
-      <h1 className="text-2xl font-semibold text-zinc-100">Baseline Assessment</h1>
-      <p className="mt-2 text-sm text-zinc-400">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-[#EDEDEB]">Baseline Assessment</h1>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => router.push(`/topics/${topicId}`)}
+        >
+          Exit
+        </Button>
+      </div>
+      <p className="mt-2 text-sm text-[#A8A29E]">
         Answer questions to help us understand your current level.
       </p>
       <div className="mt-4">
@@ -379,15 +388,15 @@ export default function AssessPage() {
         <Card className="mt-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs text-[#8A8480]">
                 Dimension: {dimensions[currentDimIndex]?.name}
               </span>
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs text-[#8A8480]">
                 {currentDimIndex + 1} of {dimensions.length}
               </span>
             </div>
 
-            <p className="text-zinc-200 text-lg">{currentQuestion.question}</p>
+            <p className="text-[#EDEDEB] text-lg">{currentQuestion.question}</p>
 
             {currentQuestion.type === "mc" && currentQuestion.options ? (
               <div className="space-y-2">
@@ -395,10 +404,10 @@ export default function AssessPage() {
                   <button
                     key={idx}
                     onClick={() => setSelectedAnswer(option)}
-                    className={`w-full rounded-md border px-4 py-3 text-left text-sm transition-colors ${
+                    className={`w-full rounded-[8px] border px-4 py-3.5 text-left text-[15px] transition-all duration-150 min-h-[48px] ${
                       selectedAnswer === option
-                        ? "border-amber-500 bg-amber-500/10 text-zinc-100"
-                        : "border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-zinc-600"
+                        ? "border-amber-500 bg-amber-500/10 text-[#EDEDEB]"
+                        : "border-white/[0.10] bg-[#161513] text-[#EDEDEB] hover:border-white/[0.18]"
                     }`}
                   >
                     {option}
@@ -408,10 +417,10 @@ export default function AssessPage() {
                 {/* Narrowed to 2 option */}
                 <button
                   onClick={() => setSelectedAnswer("Narrowed to 2")}
-                  className={`w-full rounded-md border px-4 py-3 text-left text-sm transition-colors ${
+                  className={`w-full rounded-[8px] border px-4 py-3.5 text-left text-[15px] transition-all duration-150 min-h-[48px] ${
                     selectedAnswer === "Narrowed to 2"
                       ? "border-blue-500 bg-blue-500/10 text-blue-300"
-                      : "border-zinc-800 bg-zinc-950 text-zinc-500 hover:border-zinc-700"
+                      : "border-white/[0.06] bg-[#0F0E0D] text-[#57534E] hover:border-white/[0.10]"
                   }`}
                 >
                   I narrowed it down to 2 options

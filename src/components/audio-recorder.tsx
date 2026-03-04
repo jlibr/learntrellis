@@ -153,7 +153,7 @@ export function AudioRecorder({
             <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-pulse" />
           </>
         ) : status === "transcribing" ? (
-          <Button variant="ghost" size="sm" disabled className="gap-1.5 text-zinc-400">
+          <Button variant="ghost" size="sm" disabled className="gap-1.5 text-[#A8A29E]">
             <LoadingIcon />
             <span className="text-xs">Transcribing...</span>
           </Button>
@@ -163,7 +163,7 @@ export function AudioRecorder({
             size="sm"
             onClick={startRecording}
             disabled={disabled}
-            className="gap-1.5 text-zinc-400 hover:text-zinc-200"
+            className="gap-1.5 text-[#A8A29E] hover:text-[#EDEDEB]"
           >
             <MicIcon />
             <span className="text-xs">Record Answer</span>

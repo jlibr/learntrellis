@@ -44,9 +44,9 @@ export default function NewTopicPage() {
   }
 
   return (
-    <div className="mx-auto max-w-xl py-12">
-      <h1 className="text-2xl font-semibold text-zinc-100">New Learning Topic</h1>
-      <p className="mt-2 text-sm text-zinc-400">
+    <div className="mx-auto max-w-[640px] py-12">
+      <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">New Learning Topic</h1>
+      <p className="mt-2 text-sm text-[#A8A29E]">
         Tell us what you want to learn and we will build a personalized curriculum.
       </p>
 
@@ -86,8 +86,8 @@ export default function NewTopicPage() {
                 role="switch"
                 aria-checked={quickStart}
                 onClick={() => setQuickStart(!quickStart)}
-                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 ${
-                  quickStart ? "bg-amber-500" : "bg-zinc-700"
+                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F0E0D] ${
+                  quickStart ? "bg-amber-500" : "bg-white/[0.12]"
                 }`}
               >
                 <span
@@ -97,15 +97,15 @@ export default function NewTopicPage() {
                 />
               </button>
               <div>
-                <span className="text-sm font-medium text-zinc-300">Quick start</span>
-                <p className="text-xs text-zinc-500">Skip detailed onboarding, use a shorter assessment</p>
+                <span className="text-sm font-medium text-[#EDEDEB]">Quick start</span>
+                <p className="text-xs text-[#8A8480]">Skip detailed onboarding, use a shorter assessment</p>
               </div>
             </div>
           </div>
         </Card>
 
         {error && (
-          <div className="rounded-md border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          <div className="rounded-[8px] border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
             {error}
           </div>
         )}

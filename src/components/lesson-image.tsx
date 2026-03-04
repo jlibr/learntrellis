@@ -43,12 +43,12 @@ export function LessonImage({ onRequestImage, altText = "Lesson illustration", c
 
   if (status === "prompt") {
     return (
-      <div className={`flex items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/50 p-6 ${className}`}>
+      <div className={`flex items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#161513]/50 p-6 ${className}`}>
         <Button
           variant="ghost"
           size="sm"
           onClick={handleGenerate}
-          className="gap-1.5 text-zinc-400 hover:text-zinc-200"
+          className="gap-1.5 text-[#A8A29E] hover:text-[#EDEDEB]"
         >
           <ImageIcon />
           <span className="text-xs">Generate illustration</span>
@@ -59,22 +59,22 @@ export function LessonImage({ onRequestImage, altText = "Lesson illustration", c
 
   if (status === "loading") {
     return (
-      <div className={`flex flex-col items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/50 p-8 ${className}`}>
+      <div className={`flex flex-col items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#161513]/50 p-8 ${className}`}>
         <div className="h-6 w-6 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-        <p className="mt-3 text-xs text-zinc-500">Generating illustration...</p>
+        <p className="mt-3 text-xs text-[#8A8480]">Generating illustration...</p>
       </div>
     );
   }
 
   if (status === "error") {
     return (
-      <div className={`flex flex-col items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/50 p-6 ${className}`}>
+      <div className={`flex flex-col items-center justify-center rounded-[8px] border border-white/[0.08] bg-[#161513]/50 p-6 ${className}`}>
         <p className="text-xs text-red-400">{errorMsg}</p>
         <Button
           variant="ghost"
           size="sm"
           onClick={handleGenerate}
-          className="mt-2 text-xs text-zinc-400 hover:text-zinc-200"
+          className="mt-2 text-xs text-[#A8A29E] hover:text-[#EDEDEB]"
         >
           Try again
         </Button>
@@ -84,7 +84,7 @@ export function LessonImage({ onRequestImage, altText = "Lesson illustration", c
 
   // Loaded state
   return (
-    <div className={`overflow-hidden rounded-lg border border-zinc-800 ${className}`}>
+    <div className={`overflow-hidden rounded-[8px] border border-white/[0.08] relative group ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imageUrl!}
@@ -93,7 +93,7 @@ export function LessonImage({ onRequestImage, altText = "Lesson illustration", c
         loading="lazy"
       />
       {altText && (
-        <p className="bg-zinc-900 px-3 py-2 text-xs text-zinc-500 text-center">{altText}</p>
+        <p className="absolute bottom-0 inset-x-0 bg-[#0F0E0D]/80 backdrop-blur-sm px-3 py-2 text-xs text-[#8A8480]">{altText}</p>
       )}
     </div>
   );

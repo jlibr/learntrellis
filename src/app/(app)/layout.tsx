@@ -17,10 +17,12 @@ export default async function AppLayout({
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[#0F0E0D]">
       <AppNav user={user} />
-      <main className="flex-1 px-6 py-8 lg:px-8">
-        {children}
+      <main className="flex-1 min-w-0 overflow-y-auto">
+        <div className="mx-auto max-w-[960px] px-6 py-8 pb-24 lg:pb-8">
+          {children}
+        </div>
       </main>
     </div>
   );

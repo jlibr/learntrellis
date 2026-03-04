@@ -24,50 +24,93 @@ export function AppNav({ user }: { user: User }) {
   }
 
   return (
-    <nav className="hidden w-56 flex-shrink-0 border-r border-zinc-800 bg-zinc-950 lg:block">
-      <div className="flex h-full flex-col">
-        <div className="px-4 py-6">
-          <Link href="/dashboard" className="text-lg font-semibold text-zinc-100">
-            LearnTrellis
-          </Link>
-        </div>
-
-        <div className="flex-1 space-y-1 px-2">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                  isActive
-                    ? "bg-zinc-800 text-zinc-100"
-                    : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200"
-                )}
-              >
-                <item.icon className="h-4 w-4" />
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="border-t border-zinc-800 px-2 py-4">
-          <div className="flex items-center justify-between px-3">
-            <span className="truncate text-sm text-zinc-400">
-              {user.email}
-            </span>
-            <button
-              onClick={handleLogout}
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+    <>
+      {/* Desktop sidebar */}
+      <nav className="hidden w-56 shrink-0 border-r border-white/[0.08] bg-[#0F0E0D] lg:block" aria-label="Main navigation">
+        <div className="flex h-full flex-col">
+          <div className="px-4 py-6">
+            <Link
+              href="/dashboard"
+              className="text-[15px] font-bold text-[#EDEDEB] tracking-[-0.01em]"
             >
-              Sign out
-            </button>
+              LearnTrellis
+            </Link>
+          </div>
+
+          <div className="flex-1 space-y-1 px-3">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-3 rounded-[8px] px-3 py-2 text-sm font-medium transition-colors duration-100",
+                    isActive
+                      ? "bg-amber-500/10 text-amber-400 border-l-2 border-amber-500 -ml-[2px] pl-[14px]"
+                      : "text-[#8A8480] hover:bg-white/[0.06] hover:text-[#A8A29E]"
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="border-t border-white/[0.08] px-3 py-4">
+            <div className="flex items-center justify-between px-3">
+              <span className="text-[13px] text-[#8A8480] truncate">
+                {user.email}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="text-xs text-[#57534E] hover:text-[#A8A29E] transition-colors"
+              >
+                Sign out
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile bottom tab bar */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-white/[0.08] bg-[#0F0E0D]/95 backdrop-blur-sm px-2 pb-[env(safe-area-inset-bottom)] lg:hidden" aria-label="Mobile navigation">
+        {navItems.map((item) => {
+          const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex flex-col items-center gap-1 px-3 py-3 min-h-[48px] min-w-[48px] text-[11px] font-medium transition-colors duration-100",
+                isActive
+                  ? "text-amber-400"
+                  : "text-[#8A8480]"
+              )}
+            >
+              <item.icon className="h-5 w-5" />
+              {item.label}
+            </Link>
+          );
+        })}
+        <button
+          onClick={handleLogout}
+          className="flex flex-col items-center gap-1 px-3 py-3 min-h-[48px] min-w-[48px] text-[11px] font-medium text-[#57534E] transition-colors"
+        >
+          <LogOutIcon className="h-5 w-5" />
+          Sign out
+        </button>
+      </nav>
+    </>
+  );
+}
+
+function LogOutIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+    </svg>
   );
 }
 

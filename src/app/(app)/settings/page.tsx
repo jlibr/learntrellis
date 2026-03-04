@@ -15,27 +15,27 @@ export default async function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-xl">
-      <h1 className="text-2xl font-semibold text-zinc-100">Settings</h1>
+      <h1 className="text-2xl font-semibold text-[#EDEDEB]">Settings</h1>
 
       <div className="mt-8 space-y-8">
         {/* Profile Section */}
         <section>
-          <h2 className="text-lg font-medium text-zinc-200">Profile</h2>
-          <div className="mt-4 rounded-lg border border-zinc-800 bg-zinc-900 p-6">
+          <h2 className="text-lg font-medium text-[#EDEDEB]">Profile</h2>
+          <div className="mt-4 rounded-[12px] border border-white/[0.08] bg-[#161513] p-6">
             <dl className="space-y-4">
               <div>
-                <dt className="text-sm text-zinc-500">Email</dt>
-                <dd className="mt-1 text-sm text-zinc-200">{user!.email}</dd>
+                <dt className="text-sm text-[#8A8480]">Email</dt>
+                <dd className="mt-1 text-sm text-[#EDEDEB]">{user!.email}</dd>
               </div>
               <div>
-                <dt className="text-sm text-zinc-500">Display Name</dt>
-                <dd className="mt-1 text-sm text-zinc-200">
+                <dt className="text-sm text-[#8A8480]">Display Name</dt>
+                <dd className="mt-1 text-sm text-[#EDEDEB]">
                   {profile?.display_name || "Not set"}
                 </dd>
               </div>
               <div>
-                <dt className="text-sm text-zinc-500">Timezone</dt>
-                <dd className="mt-1 text-sm text-zinc-200">
+                <dt className="text-sm text-[#8A8480]">Timezone</dt>
+                <dd className="mt-1 text-sm text-[#EDEDEB]">
                   {profile?.timezone || "UTC"}
                 </dd>
               </div>
@@ -45,8 +45,8 @@ export default async function SettingsPage() {
 
         {/* API Provider Section */}
         <section>
-          <h2 className="text-lg font-medium text-zinc-200">API Provider</h2>
-          <p className="mt-1 text-sm text-zinc-500">
+          <h2 className="text-lg font-medium text-[#EDEDEB]">API Provider</h2>
+          <p className="mt-1 text-sm text-[#8A8480]">
             Connect your own API key to use LearnTrellis, or subscribe for hosted access.
           </p>
           <div className="mt-4">
@@ -60,13 +60,13 @@ export default async function SettingsPage() {
 
         {/* Subscription Section */}
         <section>
-          <h2 className="text-lg font-medium text-zinc-200">Subscription</h2>
-          <div className="mt-4 rounded-lg border border-zinc-800 bg-zinc-900 p-6">
+          <h2 className="text-lg font-medium text-[#EDEDEB]">Subscription</h2>
+          <div className="mt-4 rounded-[12px] border border-white/[0.08] bg-[#161513] p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-zinc-400">
+                <p className="text-sm text-[#A8A29E]">
                   Status:{" "}
-                  <span className="font-medium text-zinc-200">
+                  <span className="font-medium text-[#EDEDEB]">
                     {profile?.subscription_status === "active"
                       ? "Active"
                       : profile?.subscription_status === "canceled"
@@ -75,7 +75,7 @@ export default async function SettingsPage() {
                   </span>
                 </p>
                 {profile?.subscription_status !== "active" && !profile?.api_provider && (
-                  <p className="mt-2 text-xs text-zinc-500">
+                  <p className="mt-2 text-xs text-[#8A8480]">
                     Add an API key above or subscribe for hosted access.
                   </p>
                 )}

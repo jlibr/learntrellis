@@ -146,7 +146,7 @@ export default function MasteryTestPage() {
         <Card>
           <div className="flex flex-col items-center justify-center py-12">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-            <p className="mt-4 text-zinc-300">
+            <p className="mt-4 text-[#EDEDEB]">
               {phase === "loading" ? "Generating mastery test..." : "Evaluating your answers..."}
             </p>
           </div>
@@ -158,7 +158,7 @@ export default function MasteryTestPage() {
   if (phase === "results") {
     return (
       <div className="mx-auto max-w-2xl py-12">
-        <h1 className="text-2xl font-semibold text-zinc-100 mb-6">Mastery Test Results</h1>
+        <h1 className="text-2xl font-semibold text-[#EDEDEB] mb-6">Mastery Test Results</h1>
 
         <Card>
           <div className="space-y-6">
@@ -175,17 +175,17 @@ export default function MasteryTestPage() {
               >
                 {passed ? "PASSED" : "NOT PASSED"}
               </Badge>
-              <p className="mt-3 text-zinc-300">{statusMessage}</p>
+              <p className="mt-3 text-[#EDEDEB]">{statusMessage}</p>
             </div>
 
             {/* Area breakdown */}
-            <div className="border-t border-zinc-800 pt-4">
-              <h3 className="text-sm font-medium text-zinc-400 mb-3">Score by Area</h3>
+            <div className="border-t border-white/[0.08] pt-4">
+              <h3 className="text-sm font-medium text-[#A8A29E] mb-3">Score by Area</h3>
               <div className="space-y-3">
                 {Object.entries(areaScores).map(([area, areaScore]) => (
                   <div key={area}>
                     <div className="flex items-center justify-between text-sm mb-1">
-                      <span className="text-zinc-300">{area}</span>
+                      <span className="text-[#EDEDEB]">{area}</span>
                       <span className={
                         areaScore >= 80 ? "text-green-400" :
                         areaScore >= 60 ? "text-amber-400" : "text-red-400"
@@ -201,7 +201,7 @@ export default function MasteryTestPage() {
 
             {/* Status-specific messaging */}
             {resultStatus === "mastery_pending" && (
-              <div className="rounded-md border border-amber-500/20 bg-amber-500/5 p-4">
+              <div className="rounded-[8px] border border-amber-500/20 bg-amber-500/5 p-4">
                 <p className="text-sm text-amber-400">
                   Come back in 24 hours for the confirmation test to lock in your mastery.
                 </p>
@@ -209,7 +209,7 @@ export default function MasteryTestPage() {
             )}
 
             {resultStatus === "mastered" && (
-              <div className="rounded-md border border-green-500/20 bg-green-500/5 p-4">
+              <div className="rounded-[8px] border border-green-500/20 bg-green-500/5 p-4">
                 <p className="text-sm text-green-400">
                   Module mastered! The next module has been unlocked.
                 </p>
@@ -217,7 +217,7 @@ export default function MasteryTestPage() {
             )}
 
             {resultStatus === "reteach" && (
-              <div className="rounded-md border border-red-500/20 bg-red-500/5 p-4">
+              <div className="rounded-[8px] border border-red-500/20 bg-red-500/5 p-4">
                 <p className="text-sm text-red-400">
                   Review the module material focusing on weak areas, then take the test again.
                   You have one reteach attempt.
@@ -226,8 +226,8 @@ export default function MasteryTestPage() {
             )}
 
             {resultStatus === "skipped_gap" && (
-              <div className="rounded-md border border-zinc-600 bg-zinc-800/50 p-4">
-                <p className="text-sm text-zinc-400">
+              <div className="rounded-[8px] border border-white/[0.16] bg-[#262320]/50 p-4">
+                <p className="text-sm text-[#A8A29E]">
                   This module has been marked as a knowledge gap. It is visible on your dashboard
                   and you can revisit it later. The next module has been unlocked so you can continue.
                 </p>
@@ -277,8 +277,8 @@ export default function MasteryTestPage() {
     return (
       <div className="mx-auto max-w-2xl py-12">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-semibold text-zinc-100">Mastery Test</h1>
-          <span className="text-sm text-zinc-500">
+          <h1 className="text-xl font-semibold text-[#EDEDEB]">Mastery Test</h1>
+          <span className="text-sm text-[#8A8480]">
             {currentIdx + 1} of {questions.length}
           </span>
         </div>
@@ -291,10 +291,10 @@ export default function MasteryTestPage() {
               <Badge variant={currentQuestion.type === "mc" ? "info" : "warning"}>
                 {currentQuestion.type === "mc" ? "Multiple Choice" : "Open-Ended"}
               </Badge>
-              <span className="text-xs text-zinc-500">{currentQuestion.area}</span>
+              <span className="text-xs text-[#8A8480]">{currentQuestion.area}</span>
             </div>
 
-            <p className="text-zinc-200 text-lg">{currentQuestion.question}</p>
+            <p className="text-[#EDEDEB] text-lg">{currentQuestion.question}</p>
 
             {/* MC options */}
             {currentQuestion.type === "mc" && currentQuestion.options && (
@@ -303,10 +303,10 @@ export default function MasteryTestPage() {
                   <button
                     key={idx}
                     onClick={() => setSelectedAnswer(option)}
-                    className={`w-full rounded-md border px-4 py-3 text-left text-sm transition-colors ${
+                    className={`w-full rounded-[8px] border px-4 py-3.5 text-left text-[15px] transition-all duration-150 min-h-[48px] ${
                       selectedAnswer === option
-                        ? "border-amber-500 bg-amber-500/10 text-zinc-100"
-                        : "border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-zinc-600"
+                        ? "border-amber-500 bg-amber-500/10 text-[#EDEDEB]"
+                        : "border-white/[0.10] bg-[#161513] text-[#EDEDEB] hover:border-white/[0.18]"
                     }`}
                   >
                     {option}

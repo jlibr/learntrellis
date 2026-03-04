@@ -62,7 +62,7 @@ export function BillingClient({
         </div>
       )}
       {canceled && (
-        <div className="rounded-md bg-zinc-800 border border-zinc-700 px-4 py-3 text-sm text-zinc-400">
+        <div className="rounded-[8px] bg-[#262320] border border-white/[0.12] px-4 py-3 text-sm text-[#A8A29E]">
           Checkout was canceled. No charges were made.
         </div>
       )}
@@ -71,13 +71,13 @@ export function BillingClient({
       <Card>
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-medium text-zinc-200">Current Plan</h2>
+            <h2 className="text-lg font-medium text-[#EDEDEB]">Current Plan</h2>
             <div className="mt-2 flex items-center gap-3">
               <Badge variant={isActive ? "success" : "default"}>
                 {isActive ? "Pro" : "Free"}
               </Badge>
               {hasApiKey && !isActive && (
-                <span className="text-xs text-zinc-500">Using your own API key</span>
+                <span className="text-xs text-[#8A8480]">Using your own API key</span>
               )}
             </div>
           </div>
@@ -85,7 +85,7 @@ export function BillingClient({
 
         {isActive ? (
           <div className="mt-6">
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-[#A8A29E]">
               Your subscription is active. AI calls use hosted infrastructure at
               no additional cost per request.
             </p>
@@ -102,15 +102,15 @@ export function BillingClient({
           </div>
         ) : (
           <div className="mt-6">
-            <div className="rounded-md bg-zinc-800/50 border border-zinc-700 p-4">
-              <h3 className="text-sm font-medium text-zinc-200">
+            <div className="rounded-[8px] bg-[#262320]/50 border border-white/[0.12] p-4">
+              <h3 className="text-sm font-medium text-[#EDEDEB]">
                 Pro Plan
               </h3>
-              <p className="mt-1 text-sm text-zinc-400">
+              <p className="mt-1 text-sm text-[#A8A29E]">
                 Hosted AI access — no API key needed. Unlimited lessons,
                 assessments, and reviews.
               </p>
-              <ul className="mt-3 space-y-2 text-sm text-zinc-400">
+              <ul className="mt-3 space-y-2 text-sm text-[#A8A29E]">
                 <li className="flex items-center gap-2">
                   <CheckIcon />
                   No API key required
@@ -136,7 +136,7 @@ export function BillingClient({
             </div>
 
             {!hasApiKey && (
-              <p className="mt-4 text-xs text-zinc-500">
+              <p className="mt-4 text-xs text-[#8A8480]">
                 Or{" "}
                 <a
                   href="/settings"

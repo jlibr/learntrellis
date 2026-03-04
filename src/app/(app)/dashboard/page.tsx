@@ -41,7 +41,7 @@ export default async function DashboardPage() {
       <div className="mx-auto max-w-2xl py-24 text-center">
         <div className="mb-6">
           <svg
-            className="mx-auto h-16 w-16 text-zinc-700"
+            className="mx-auto h-16 w-16 text-[#57534E]"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1}
@@ -54,10 +54,10 @@ export default async function DashboardPage() {
             />
           </svg>
         </div>
-        <h1 className="text-2xl font-semibold text-zinc-100">
+        <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">
           Welcome to LearnTrellis
         </h1>
-        <p className="mt-3 text-zinc-400">
+        <p className="mt-3 text-[#A8A29E]">
           Start your first learning topic and let AI build a personalized
           curriculum for you.
         </p>
@@ -226,9 +226,9 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div className="mx-auto max-w-5xl">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-zinc-100">Your Topics</h1>
+    <div>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl font-bold text-[#EDEDEB] tracking-[-0.025em]">Your Topics</h1>
         <Link href="/topics/new">
           <Button variant="primary" size="sm">
             New Topic
@@ -236,7 +236,7 @@ export default async function DashboardPage() {
         </Link>
       </div>
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {topicCards.map((card) => (
           <TopicCard key={card.id} card={card} />
         ))}
@@ -254,14 +254,14 @@ function TopicCard({ card }: { card: TopicCardData }) {
       : 0;
 
   return (
-    <Card className="flex flex-col transition-colors hover:border-zinc-700">
+    <div className="rounded-[12px] border border-white/[0.08] bg-[#161513] p-6 flex flex-col transition-all duration-150 cursor-pointer hover:border-white/[0.16] hover:bg-[#1E1C19] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)] hover:-translate-y-0.5">
       {/* Header row: title + status */}
       <div className="flex items-start justify-between gap-2">
         <Link
           href={`/topics/${card.id}`}
           className="min-w-0 flex-1"
         >
-          <h2 className="font-medium text-zinc-100 hover:text-amber-400 transition-colors truncate">
+          <h2 className="font-medium text-[#EDEDEB] hover:text-amber-400 transition-colors truncate">
             {card.title}
           </h2>
         </Link>
@@ -272,9 +272,9 @@ function TopicCard({ card }: { card: TopicCardData }) {
 
       {/* Current module */}
       {card.currentModule && (
-        <p className="mt-2 text-xs text-zinc-500">
+        <p className="mt-2 text-xs text-[#8A8480]">
           Current:{" "}
-          <span className="text-zinc-400">
+          <span className="text-[#A8A29E]">
             {card.currentModule.title || "Module"}
           </span>
         </p>
@@ -282,7 +282,7 @@ function TopicCard({ card }: { card: TopicCardData }) {
 
       {/* Goal */}
       {card.goal && (
-        <p className="mt-2 text-sm text-zinc-400 line-clamp-2">{card.goal}</p>
+        <p className="mt-2 text-sm text-[#A8A29E] line-clamp-2">{card.goal}</p>
       )}
 
       {/* Progress bar */}
@@ -298,7 +298,7 @@ function TopicCard({ card }: { card: TopicCardData }) {
       </div>
 
       {/* Footer: SRS badge + CTA */}
-      <div className="mt-4 flex items-center justify-between pt-2 border-t border-zinc-800">
+      <div className="mt-4 flex items-center justify-between pt-2 border-t border-white/[0.08]">
         <div>
           {card.dueReviewCount > 0 && (
             <Link href={`/topics/${card.id}/review`}>
@@ -317,7 +317,7 @@ function TopicCard({ card }: { card: TopicCardData }) {
           </Button>
         </Link>
       </div>
-    </Card>
+    </div>
   );
 }
 

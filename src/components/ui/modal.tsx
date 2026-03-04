@@ -40,11 +40,11 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
     <div
       ref={overlayRef}
       onClick={handleOverlayClick}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[300] bg-black/70 backdrop-blur-[4px] flex items-center justify-center p-4"
     >
       <div
         className={cn(
-          "w-full max-w-md rounded-lg border border-zinc-800 bg-zinc-900 p-6 shadow-xl",
+          "w-full max-w-[560px] rounded-[16px] border border-white/[0.12] bg-[#1E1C19] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,251,235,0.08)] max-h-[90vh] overflow-y-auto",
           className
         )}
         role="dialog"
@@ -53,10 +53,10 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
       >
         {title && (
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-medium text-zinc-100">{title}</h2>
+            <h2 className="text-xl font-semibold text-[#EDEDEB]">{title}</h2>
             <button
               onClick={onClose}
-              className="text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-[#8A8480] hover:text-[#A8A29E] transition-colors h-11 w-11 flex items-center justify-center"
               aria-label="Close"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">

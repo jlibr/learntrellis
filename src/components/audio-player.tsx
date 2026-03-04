@@ -99,7 +99,7 @@ export function AudioPlayer({ onRequestAudio, label = "Listen", className = "" }
         size="sm"
         onClick={handlePlay}
         disabled={status === "loading"}
-        className="gap-1.5 text-zinc-400 hover:text-zinc-200"
+        className="gap-1.5 text-[#A8A29E] hover:text-[#EDEDEB]"
       >
         {status === "loading" ? (
           <>

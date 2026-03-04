@@ -106,10 +106,10 @@ export default function ReviewPage() {
         <Card>
           <div className="text-center py-8">
             <div className="text-4xl mb-4">&#10003;</div>
-            <h2 className="text-xl font-semibold text-zinc-100">
+            <h2 className="text-xl font-semibold text-[#EDEDEB]">
               {totalReviewed > 0 ? "Review Complete!" : "No Reviews Due"}
             </h2>
-            <p className="mt-2 text-zinc-400">
+            <p className="mt-2 text-[#A8A29E]">
               {totalReviewed > 0
                 ? `You reviewed ${totalReviewed} concept${totalReviewed === 1 ? "" : "s"}.`
                 : "All concepts are up to date. Come back later."}
@@ -143,8 +143,8 @@ export default function ReviewPage() {
   return (
     <div className="mx-auto max-w-2xl py-12">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-zinc-100">Spaced Review</h1>
-        <span className="text-sm text-zinc-500">
+        <h1 className="text-xl font-semibold text-[#EDEDEB]">Spaced Review</h1>
+        <span className="text-sm text-[#8A8480]">
           {currentIdx + 1} of {cards.length}
         </span>
       </div>
@@ -157,7 +157,7 @@ export default function ReviewPage() {
           {phase === "reviewing" && (
             <>
               <div className="min-h-[120px] flex flex-col items-center justify-center text-center py-6">
-                <p className="text-lg text-zinc-200">
+                <p className="text-lg text-[#EDEDEB]">
                   {reviewPrompt || conceptText}
                 </p>
               </div>
@@ -174,18 +174,18 @@ export default function ReviewPage() {
           {phase === "show_answer" && (
             <>
               <div className="min-h-[120px] flex flex-col items-center justify-center text-center py-6">
-                <p className="text-sm text-zinc-500 mb-2">Question:</p>
-                <p className="text-zinc-300 mb-4">
+                <p className="text-sm text-[#8A8480] mb-2">Question:</p>
+                <p className="text-[#EDEDEB] mb-4">
                   {reviewPrompt || "Recall this concept:"}
                 </p>
-                <div className="border-t border-zinc-800 pt-4 w-full">
-                  <p className="text-sm text-zinc-500 mb-2">Answer:</p>
-                  <p className="text-lg text-zinc-100">{conceptText}</p>
+                <div className="border-t border-white/[0.08] pt-4 w-full">
+                  <p className="text-sm text-[#8A8480] mb-2">Answer:</p>
+                  <p className="text-lg text-[#EDEDEB]">{conceptText}</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-center text-sm text-zinc-400 mb-3">
+                <p className="text-center text-sm text-[#A8A29E] mb-3">
                   How well did you remember?
                 </p>
                 <div className="flex gap-2">
@@ -193,7 +193,7 @@ export default function ReviewPage() {
                     <button
                       key={option.value}
                       onClick={() => handleRating(option.grade)}
-                      className={`flex-1 rounded-md border px-2 py-3 text-center text-sm font-medium transition-colors ${option.color}`}
+                      className={`flex-1 rounded-[8px] border px-2 py-3 text-center text-sm font-medium transition-all duration-150 min-h-[48px] ${option.color}`}
                     >
                       {option.label}
                     </button>
@@ -204,7 +204,7 @@ export default function ReviewPage() {
           )}
 
           {/* Card metadata */}
-          <div className="border-t border-zinc-800 pt-3 flex items-center justify-between text-xs text-zinc-600">
+          <div className="border-t border-white/[0.08] pt-3 flex items-center justify-between text-xs text-[#57534E]">
             <span>Interval: {currentCard?.interval_days}d</span>
             <span>EF: {currentCard?.ease_factor.toFixed(2)}</span>
             <span>Reps: {currentCard?.repetitions}</span>

@@ -129,7 +129,7 @@ export function ProviderSettings({
 
       {/* Provider Selection */}
       <div className="space-y-3">
-        <label className="block text-sm font-medium text-zinc-300">
+        <label className="block text-sm font-medium text-[#EDEDEB]">
           Provider
         </label>
         <div className="grid grid-cols-2 gap-3">
@@ -138,21 +138,21 @@ export function ProviderSettings({
               key={p.id}
               type="button"
               onClick={() => setSelectedProvider(p.id)}
-              className={`rounded-md border p-3 text-left transition-colors ${
+              className={`rounded-[8px] border p-3 text-left transition-colors duration-150 cursor-pointer ${
                 selectedProvider === p.id
                   ? "border-amber-500 bg-amber-500/5"
-                  : "border-zinc-700 bg-zinc-800/50 hover:border-zinc-600"
+                  : "border-white/[0.12] bg-[#262320]/50 hover:border-white/[0.16]"
               }`}
             >
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-zinc-200">
+                <span className="text-sm font-medium text-[#EDEDEB]">
                   {p.name}
                 </span>
                 {currentProvider === p.id && hasKey && (
                   <Badge variant="success">Active</Badge>
                 )}
               </div>
-              <p className="mt-1 text-xs text-zinc-500">{p.description}</p>
+              <p className="mt-1 text-xs text-[#8A8480]">{p.description}</p>
             </button>
           ))}
         </div>
@@ -176,7 +176,7 @@ export function ProviderSettings({
           </div>
         </div>
 
-        <p className="mt-2 text-xs text-zinc-500">
+        <p className="mt-2 text-xs text-[#8A8480]">
           Get your key from{" "}
           <a
             href={
