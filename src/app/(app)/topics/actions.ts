@@ -626,7 +626,7 @@ Return as JSON:
         role: "user",
         content: `Write the lesson "${lesson.title}" for module "${module.title}" in topic "${topic.title}".`,
       },
-    ], { temperature: 0.5, maxTokens: 4000 });
+    ], { temperature: 0.5, maxTokens: 8000 });
 
     const parsed = parseJsonFromAI(result.content) as {
       objective: string;
