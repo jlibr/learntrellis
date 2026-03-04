@@ -57,18 +57,40 @@ async function getConfigForTask(task: "profiling" | "curriculum" | "lesson" | "g
   };
 }
 
+function repairJsonNewlines(raw: string): string {
+  // LLMs often output literal newlines/tabs inside JSON string values.
+  // Walk the string character-by-character and escape them.
+  let result = "";
+  let inString = false;
+  let escaped = false;
+  for (let i = 0; i < raw.length; i++) {
+    const ch = raw[i];
+    if (escaped) { result += ch; escaped = false; continue; }
+    if (ch === "\\" && inString) { result += ch; escaped = true; continue; }
+    if (ch === '"') { inString = !inString; result += ch; continue; }
+    if (inString) {
+      if (ch === "\n") { result += "\\n"; continue; }
+      if (ch === "\r") { result += "\\r"; continue; }
+      if (ch === "\t") { result += "\\t"; continue; }
+    }
+    result += ch;
+  }
+  return result;
+}
+
 function parseJsonFromAI(content: string): unknown {
   // Try to extract JSON from markdown code blocks first
   const codeBlockMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
-  if (codeBlockMatch) {
-    return JSON.parse(codeBlockMatch[1].trim());
+  const raw = codeBlockMatch
+    ? codeBlockMatch[1].trim()
+    : (content.match(/(\{[\s\S]*\}|\[[\s\S]*\])/) || [null, content])[1];
+
+  // First try direct parse, then try with newline repair
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return JSON.parse(repairJsonNewlines(raw));
   }
-  // Try to find JSON object/array directly
-  const jsonMatch = content.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
-  if (jsonMatch) {
-    return JSON.parse(jsonMatch[1]);
-  }
-  return JSON.parse(content);
 }
 
 // ---------------------------------------------------------------------------
