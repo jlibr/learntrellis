@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { signupWithEmail } from "../actions";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -23,24 +24,10 @@ export default function SignupPage() {
     setError(null);
     setLoading(true);
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters");
-      setLoading(false);
-      return;
-    }
+    const result = await signupWithEmail(email, password, displayName);
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: displayName || undefined,
-        },
-      },
-    });
-
-    if (error) {
-      setError(error.message);
+    if (!result.success) {
+      setError(result.error || "Something went wrong");
       setLoading(false);
       return;
     }
