@@ -216,14 +216,7 @@ export async function getProviderConfig(
       };
     }
 
-    // Case 2: No BYOK key → use hosted key (subscribers only)
-    if (profile.subscription_status !== "active" && profile.subscription_status !== "trialing") {
-      return {
-        success: true,
-        data: null,
-      };
-    }
-
+    // Case 2: No BYOK key → use hosted key (available to all users during beta)
     const hostedKey = process.env.HOSTED_API_KEY?.trim();
     const hostedProvider = (process.env.HOSTED_PROVIDER?.trim() || "openrouter") as ProviderName;
 
