@@ -86,12 +86,14 @@ function ProductMockup() {
 function FeatureSection({
   eyebrow,
   title,
+  titleGray,
   description,
   visual,
   reverse = false,
 }: {
   eyebrow: string;
   title: string;
+  titleGray?: string;
   description: string;
   visual: React.ReactNode;
   reverse?: boolean;
@@ -103,7 +105,7 @@ function FeatureSection({
           {eyebrow}
         </span>
         <h2 className="text-[32px] font-semibold leading-[1.1] tracking-[-0.025em] text-[#eeeeef]">
-          {title}
+          {title}{titleGray && <>{" "}<span className="text-[#6e6e78]">{titleGray}</span></>}
         </h2>
         <p className="mt-4 text-[16px] leading-[1.65] text-[#a8a8b0]">
           {description}
@@ -266,7 +268,7 @@ export default async function LandingPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(245,158,11,0.08), transparent 70%)",
+              "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(245,158,11,0.12), transparent 70%)",
           }}
         />
         <div className="relative mx-auto max-w-[1200px] text-center">
@@ -340,7 +342,8 @@ export default async function LandingPage() {
         <Reveal className="mx-auto max-w-[1000px]">
           <FeatureSection
             eyebrow="1.0 Baseline"
-            title="We start by understanding exactly where you are"
+            title="We start by understanding"
+            titleGray="exactly where you are"
             description="No wasted time on what you already know. An adaptive assessment maps your current knowledge across every dimension of your topic, then builds from there."
             visual={<AssessmentVisual />}
           />
@@ -352,7 +355,8 @@ export default async function LandingPage() {
         <Reveal className="mx-auto max-w-[1000px]">
           <FeatureSection
             eyebrow="2.0 Curriculum"
-            title="A learning path built specifically for you"
+            title="A learning path built"
+            titleGray="specifically for you"
             description="AI generates a structured curriculum matched to Bloom's taxonomy. Each module builds on the last, with mastery gates that ensure you're ready before advancing."
             visual={<CurriculumVisual />}
             reverse
@@ -365,7 +369,8 @@ export default async function LandingPage() {
         <Reveal className="mx-auto max-w-[1000px]">
           <FeatureSection
             eyebrow="3.0 Retention"
-            title="Actually remember what you learn"
+            title="Actually remember"
+            titleGray="what you learn"
             description="Concepts resurface at scientifically optimal intervals. Spaced repetition cards track your retention strength and schedule reviews right before you'd forget."
             visual={<RetentionVisual />}
           />
@@ -375,8 +380,8 @@ export default async function LandingPage() {
       {/* ─── 7. CTA ─── bg: raised */}
       <section className="bg-[#111113] border-t border-white/[0.06] px-6 py-[100px] max-md:py-[64px]">
         <Reveal className="mx-auto max-w-[600px] text-center">
-          <h2 className="text-[32px] max-md:text-[24px] font-semibold text-[#eeeeef] tracking-[-0.025em]">
-            Ready to learn something new?
+          <h2 className="text-[32px] max-md:text-[24px] font-semibold tracking-[-0.025em] text-[#eeeeef]">
+            Ready to learn{" "}<span className="text-[#6e6e78]">something new?</span>
           </h2>
           <p className="mt-4 text-[16px] text-[#a8a8b0]">
             Your first personalized curriculum in under 5 minutes. Free to start.
